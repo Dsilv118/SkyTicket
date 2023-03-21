@@ -38,6 +38,22 @@ public class ATicketDto {
 		this.plseat = plseat;
 	}
 	public ATicketDto(int atid, String actname, String dctname, int plnum, int atprice, Timestamp atatime,
+			Timestamp atdtime, String atphoto, String plcom, String plcomcode, String plname, int plseat) {
+		super();
+		this.atid = atid;
+		this.actname = actname;
+		this.dctname = dctname;
+		this.plnum = plnum;
+		this.atprice = atprice;
+		this.atatime = atatime;
+		this.atdtime = atdtime;
+		this.atphoto = atphoto;
+		this.plcom = plcom;
+		this.plcomcode = plcomcode;
+		this.plname = plname;
+		this.plseat = plseat;
+	}
+	public ATicketDto(int atid, String actname, String dctname, int plnum, int atprice, Timestamp atatime,
 			Timestamp atdtime, String atphoto) {
 		super();
 		this.atid = atid;

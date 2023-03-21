@@ -11,7 +11,7 @@ SELECT * FROM MEMBER WHERE mID='aaa';
 -- 2. 회원 EMAIL 중복체크
 SELECT * FROM MEMBER WHERE mEMAIL='hong@hong.com';
 
--- 3. 회원 EMAIL 중복체크
+-- 3. 회원 tel 중복체크
 SELECT * FROM MEMBER WHERE mTEL='010-2222-2222';
 
 -- 4. MEMBER 회원가입

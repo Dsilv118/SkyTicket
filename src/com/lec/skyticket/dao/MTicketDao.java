@@ -62,7 +62,34 @@ public class MTicketDao {
 		} 
 		return result;
 	}
-	// --2. 예약 테이블에서 티켓 삭제
+	// -- 1-1. 예약 성공시 자리 차감
+	public int modifyMember(int atid) {
+		int result = FAIL;
+		Connection        conn = null;
+		PreparedStatement pstmt = null;
+		String sql = "UPDATE PLANE SET pLSEAT = pLSEAT - 1 " + 
+					 "    WHERE pLSEAT > 0 AND pLNUM = (SELECT AT.pLNUM FROM AIRLINE_TICKET AT, PLANE P " + 
+					 "                                     WHERE AT.pLNUM = P.pLNUM AND AT.atID = ?)";
+		try {
+			conn  = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, atid);
+			result = pstmt.executeUpdate();
+			System.out.println(result==SUCCESS ? "좌석 수정 성공" : "좌석 수정 실패");
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			System.out.println("좌석 수정 실패");
+		} finally {
+			try {
+				if(pstmt !=null) pstmt.close();
+				if(conn  !=null) conn.close();
+			} catch(Exception e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		return result;
+	}
+	// -- 2. 예약 테이블에서 티켓 삭제
 	public int deleteMemberTicket(int rvnum) {
 		int result = FAIL;
 		Connection         conn = null;
@@ -87,17 +114,48 @@ public class MTicketDao {
 		} 
 		return result;		
 	}
-	// -- 3. atID로 예약 내역 불러오기
-	public int getMTicketCnt(int atid) {
+	// -- 2-1. 예약 취소시 좌석 자리수 만큼 증가
+	public int modifySeat(int rvnum, int plseat, int atid) {
+		int result = FAIL;
+		Connection        conn = null;
+		PreparedStatement pstmt = null;
+		String sql = "UPDATE PLANE " + 
+					 "    SET pLSEAT = (SELECT P.pLSEAT FROM MEMBER_TICKET MT, AIRLINE_TICKET AT, PLANE P " + 
+					 "                    WHERE MT.atID = AT.atID AND AT.pLNUM = P.pLNUM AND rVNUM = ?) + ? " + 
+					 "    WHERE pLNUM = (SELECT P.pLNUM FROM AIRLINE_TICKET AT, PLANE P\r\n" + 
+					 "                    WHERE AT.pLNUM = P.pLNUM AND atID = ?)";
+		try {
+			conn  = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rvnum);
+			pstmt.setInt(2, plseat);
+			pstmt.setInt(3, atid);
+			result = pstmt.executeUpdate();
+			System.out.println(result==SUCCESS ? "좌석 수정 성공" : "좌석 수정 실패");
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			System.out.println("회원정보 수정 실패");
+		} finally {
+			try {
+				if(pstmt !=null) pstmt.close();
+				if(conn  !=null) conn.close();
+			} catch(Exception e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		return result;
+	}
+	// -- 3. 에약된 갯수 불러오기 (mid로)
+	public int getMTicketCnt(String mid) {
 		int cnt = 0;
 		Connection         conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet            rs = null;
-		String sql = "SELECT COUNT(*) FROM MEMBER_TICKET WHERE atID = ?";
+		String sql = "SELECT COUNT(*) FROM MEMBER_TICKET WHERE mID = ?";
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, atid);
+			pstmt.setString(1, mid);
 			rs = pstmt.executeQuery();
 			rs.next();
 			cnt = rs.getInt(1);
@@ -115,7 +173,7 @@ public class MTicketDao {
 		return cnt;
 	}
 	// -- 4. 예약 리스트 뿌려주기
-	public ArrayList<MTicketDto> memberTicketList(int startRow, int endRow, String mid) {
+	public ArrayList<MTicketDto> mtList(int startRow, int endRow, String mid) {
 		ArrayList<MTicketDto> mtdto = new ArrayList<MTicketDto>();
 		Connection         conn = null;
 		PreparedStatement pstmt = null;
@@ -160,7 +218,7 @@ public class MTicketDao {
 		return mtdto;
 	}
 	// -- 5. 예약 내역 상세보기
-	public MTicketDto memberTicketContent(int rvnum) {
+	public MTicketDto mtContent(int rvnum) {
 		MTicketDto mtdto = null;
 		Connection         conn = null;
 		PreparedStatement pstmt = null;
@@ -190,8 +248,9 @@ public class MTicketDao {
 				String plcom = rs.getString("plcom");
 				String plcomcode = rs.getString("plcomcode");
 				String plname = rs.getString("plname");
+				int plseat = rs.getInt("plseat");
 				mtdto = new MTicketDto(rvnum, atid, mid, mtservice, actname, dctname, plnum, atprice, 
-									   atatime, atdtime, atphoto, actcode, dctcode, plcom, plcomcode, plname);
+									   atatime, atdtime, atphoto, actcode, dctcode, plcom, plcomcode, plname, plseat);
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());

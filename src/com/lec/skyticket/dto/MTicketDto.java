@@ -19,11 +19,12 @@ public class MTicketDto {
 	private String plcom;
 	private String plcomcode;
 	private String plname;
+	private int    plseat;
 	
 	public MTicketDto() {}
 	public MTicketDto(int rvnum, int atid, String mid, String mtservice, String actname, String dctname, int plnum,
 			String atprice, Timestamp atatime, Timestamp atdtime, String atphoto, String actcode, String dctcode,
-			String plcom, String plcomcode, String plname) {
+			String plcom, String plcomcode, String plname, int plseat) {
 		this.rvnum = rvnum;
 		this.atid = atid;
 		this.mid = mid;
@@ -40,9 +41,11 @@ public class MTicketDto {
 		this.plcom = plcom;
 		this.plcomcode = plcomcode;
 		this.plname = plname;
-	}
+		this.plseat = plseat;
+	}	
 	public MTicketDto(int rvnum, int atid, String mid, String mtservice, String actname, String dctname, int plnum,
 			String atprice, Timestamp atatime, Timestamp atdtime, String atphoto) {
+		super();
 		this.rvnum = rvnum;
 		this.atid = atid;
 		this.mid = mid;
@@ -55,20 +58,14 @@ public class MTicketDto {
 		this.atdtime = atdtime;
 		this.atphoto = atphoto;
 	}
-	public MTicketDto(int rvnum, int atid, String mid, String mtservice) {
-		super();
-		this.rvnum = rvnum;
-		this.atid = atid;
-		this.mid = mid;
-		this.mtservice = mtservice;
-	}
 	
 	@Override
 	public String toString() {
 		return "MTicketDto [rvnum=" + rvnum + ", atid=" + atid + ", mid=" + mid + ", mtservice=" + mtservice
 				+ ", actname=" + actname + ", dctname=" + dctname + ", plnum=" + plnum + ", atprice=" + atprice
 				+ ", atatime=" + atatime + ", atdtime=" + atdtime + ", atphoto=" + atphoto + ", actcode=" + actcode
-				+ ", dctcode=" + dctcode + ", plcom=" + plcom + ", plcomcode=" + plcomcode + ", plname=" + plname + "]";
+				+ ", dctcode=" + dctcode + ", plcom=" + plcom + ", plcomcode=" + plcomcode + ", plname=" + plname
+				+ ", plseat=" + plseat + "]";
 	}
 	
 	public int getRvnum() {
@@ -167,6 +164,11 @@ public class MTicketDto {
 	public void setPlname(String plname) {
 		this.plname = plname;
 	}
-	
+	public int getPlseat() {
+		return plseat;
+	}
+	public void setPlseat(int plseat) {
+		this.plseat = plseat;
+	}	
 	
 }
