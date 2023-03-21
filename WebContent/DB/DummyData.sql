@@ -1,0 +1,70 @@
+----------------------------- DUMMY DATA INSERT --------------------------------
+------------------------------ MEMBER & ADMIN ----------------------------------
+INSERT INTO ADMIN (adID, adPW, adNAME, adTEL)
+    VALUES ('admin', '111', '관리자', '010-0000-0000');
+
+INSERT INTO MEMBER (mID, mPW, mkNAME, meNAME, mTEL, mEMAIL, mBIRTH, mGENDER, mNATION)
+    VALUES ('aaa', '111', '홍길동', 'HongGilDoing', '010-1111-1111', 'hong@naver.com', '1998-02-21', 'F', '한국');
+INSERT INTO MEMBER (mID, mPW, mkNAME, meNAME, mTEL, mEMAIL, mBIRTH, mGENDER, mNATION)
+    VALUES ('bbb', '111', '임길동', 'LimGilDoing', '010-2222-2222', 'lim@naver.com', '1998-01-18', 'M', '한국');
+    
+---------------------------------- AIRLINE -------------------------------------
+INSERT INTO CITY (ctNAME, ctCODE) 
+    VALUES ('인천', 'ICN');
+INSERT INTO CITY (ctNAME, ctCODE) 
+    VALUES ('김포', 'GMP');
+INSERT INTO CITY (ctNAME, ctCODE) 
+    VALUES ('제주', 'CJU');
+INSERT INTO CITY (ctNAME, ctCODE) 
+    VALUES ('LA', 'LAX');
+INSERT INTO CITY (ctNAME, ctCODE) 
+    VALUES ('도쿄', 'TYO');
+INSERT INTO CITY (ctNAME, ctCODE) 
+    VALUES ('런던', 'LON');
+
+INSERT INTO PLANE (pLNUM, pLCOM, pLCOMCODE, pLNAME, pLSEAT)
+    VALUES (PL_SEQ.NEXTVAL, '대한항공', 'KE', 'B787', 245);
+INSERT INTO PLANE (pLNUM, pLCOM, pLCOMCODE, pLNAME, pLSEAT)
+    VALUES (PL_SEQ.NEXTVAL, '아시아나항공', 'OZ', 'B777', 225);
+INSERT INTO PLANE (pLNUM, pLCOM, pLCOMCODE, pLNAME, pLSEAT)
+    VALUES (PL_SEQ.NEXTVAL, '제주항공', '7C', 'A380', 301);
+
+INSERT INTO AIRLINE_TICKET (atID, ACTNAME, DCTNAME, pLNUM, atPRICE, atATIME, atDTIME, atPHOTO)
+    VALUES (AT_SEQ.NEXTVAL, '인천', '제주', 301, 55000, '2020-03-05 10:00', '2020-03-05 11:30', 'NOIMAGE.JPG');
+INSERT INTO AIRLINE_TICKET (atID, ACTNAME, DCTNAME, pLNUM, atPRICE, atATIME, atDTIME, atPHOTO)
+    VALUES (AT_SEQ.NEXTVAL, '인천', 'LA', 302, 890000, '2020-03-12 16:00', '2020-03-13 11:30', 'NOIMAGE.JPG');
+INSERT INTO AIRLINE_TICKET (atID, ACTNAME, DCTNAME, pLNUM, atPRICE, atATIME, atDTIME, atPHOTO)
+    VALUES (AT_SEQ.NEXTVAL, '인천', '런던', 300, 1200000, '2020-03-20 10:00', '2020-03-21 11:30', 'NOIMAGE.JPG');
+    
+INSERT INTO MEMBER_TICKET (rvNUM, atID, mID, mtSERVICE)
+    VALUES (MEMBER_SEQ.NEXTVAL || TO_CHAR(SYSDATE, 'MMDD'), 2, 'aaa', '이유식');
+INSERT INTO MEMBER_TICKET (rvNUM, atID, mID, mtSERVICE)
+    VALUES (MEMBER_SEQ.NEXTVAL || TO_CHAR(SYSDATE, 'MMDD'), 3, 'bbb', '특별식');
+    
+----------------------------------- BOARD --------------------------------------    
+INSERT INTO BOARD (bID, mID, bSUBJECT, bCONTENT, bFILE, bIP, bGROUP, bSTEP, bINDENT)
+    VALUES (BOARD_SEQ.NEXTVAL, 'aaa', '제목이야1', '본문이야1', 'NOIMAGE.JPG', '192-222-12', BOARD_SEQ.CURRVAL, 0, 0);
+INSERT INTO BOARD (bID, mID, bSUBJECT, bCONTENT, bFILE, bIP, bGROUP, bSTEP, bINDENT)
+    VALUES (BOARD_SEQ.NEXTVAL, 'bbb', '제목이야2', '본문이야2', 'NOIMAGE.JPG', '953-522-0', BOARD_SEQ.CURRVAL, 0, 0);
+INSERT INTO BOARD (bID, mID, bSUBJECT, bCONTENT, bFILE, bIP, bGROUP, bSTEP, bINDENT)
+    VALUES (BOARD_SEQ.NEXTVAL, 'bbb', '제목1의 답변이야', '본문1의 답변이야', 'NOIMAGE.JPG', '342-202-10', 1, 1, 1);
+
+SELECT * FROM AIRLINE_TICKET;  
+SELECT * FROM MEMBER_TICKET;
+SELECT * FROM MEMBER;
+SELECT * FROM BOARD;
+SELECT * FROM PLANE;
+            
+ROLLBACK;
+COMMIT;
+
+
+
+
+
+
+
+
+
+
+    
