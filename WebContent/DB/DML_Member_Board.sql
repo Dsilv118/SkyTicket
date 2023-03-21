@@ -16,7 +16,7 @@ SELECT * FROM MEMBER WHERE mTEL='010-2222-2222';
 
 -- 4. MEMBER 회원가입
 INSERT INTO MEMBER (mID, mPW, mkNAME, meNAME, mTEL, mEMAIL, mBIRTH, mGENDER, mNATION)
-    VALUES ('ccc', '111', '김길동', 'KimGilDong', '010-9999-9999', 'kim@naver.com', '1998-02-12', 'M', '미국');
+    VALUES ('ddd', '111', '김길동', 'KimGilDong', '010-9999-9999', 'kim@naver.com', '1998-02-12', 'M', '미국');
     
 -- 5. 로그인 체크
 SELECT * FROM MEMBER WHERE mID='aaa' AND mPW='111';

@@ -174,7 +174,7 @@ public class BoardDao {
 		return dto;
 	}
 	// -- 5. 글 수정하기
-	public int modify(int bid, String bsubject, String bcontent, String bfile) {
+	public int modifyBoard(int bid, String bsubject, String bcontent, String bfile) {
 		int result = FAIL;
 		Connection         conn = null;
 		PreparedStatement pstmt = null;

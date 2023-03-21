@@ -149,6 +149,32 @@ public class PlaneDao {
 		}
 		return result;
 	}
+	// -- 5. 좌석이 매진된 항공권은 매진 표시 (pLNUM으로 자리 가져오기)
+	public int seatChk(int plnum) {
+		int totSeat = 0;
+		Connection         conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet            rs = null;
+		String sql = "SELECT pLSEAT FROM PLANE WHERE pLNUM = ?";
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, plnum);
+			rs = pstmt.executeQuery();	
+			totSeat = rs.getInt(1);
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if(rs   !=null) rs.close();
+				if(pstmt!=null) pstmt.close();
+				if(conn !=null) conn.close();
+			} catch(SQLException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		return totSeat;
+	}
 }
 
 

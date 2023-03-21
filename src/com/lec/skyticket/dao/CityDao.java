@@ -30,17 +30,16 @@ public class CityDao {
 		return conn;
 	}
 	// -- 1. 도시와 도시코드 정보 맞는지 확인
-	public int cityConfirm(String ctname, String ctcode) {
+	public int cityConfirm(String ctname) {
 		int result = DUPLI;
 		Connection         conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet            rs = null;
-		String sql = "SELECT * FROM CITY WHERE ctNAME = ? AND ctCODE = ?";
+		String sql = "SELECT * FROM CITY WHERE ctNAME = ?";
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, ctname);
-			pstmt.setString(2, ctcode);
 			rs = pstmt.executeQuery();	
 			if(rs.next()) {
 				result = DUPLI;
