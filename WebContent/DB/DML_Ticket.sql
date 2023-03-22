@@ -55,9 +55,9 @@ SELECT pLSEAT FROM PLANE WHERE pLNUM = 300;
 -------------------------------- AIRLINE QUERY ---------------------------------
 -- 1. 예약 성공
     -- 예약성공하면 멤버티켓 테이블로 예약 내역 추가
-INSERT INTO MEMBER_TICKET (rvNUM, atID, mID, mtSERVICE)
+INSERT INTO MEMBER_TICKET (rvNUM, atID, mID, mtSEAT, mtSERVICE)
     VALUES (MEMBER_SEQ.NEXTVAL || TO_CHAR(SYSDATE, 'MMDD'),
-            1, 'aaa', '이유식');
+            1, 'aaa', 1, '이유식');
     -- 예약한 자리 차감 
 UPDATE PLANE SET pLSEAT = pLSEAT - 1
     WHERE pLSEAT > 0 AND pLNUM = (SELECT AT.pLNUM FROM AIRLINE_TICKET AT, PLANE P

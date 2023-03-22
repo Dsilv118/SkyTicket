@@ -1,0 +1,29 @@
+@charset "UTF-8";
+#joinForm_wrap {width:800px; margin: 10px auto; padding:20px;}
+#join_title{
+	width:800px;            	margin:10px auto;
+	padding-bottom:20px;     	border-bottom:1px solid #50BCDF;
+	color: #000000;          	font-size:1.5em;
+	text-align:center;       
+}
+#joinForm_wrap table{margin:0 auto; color: #343A40;}
+#joinForm_wrap table tr{height:40px;}
+#joinForm_wrap table th{
+	width:160px;        	font-size:0.9em;      border-bottom: 1px solid #E9ECEF;
+	color: #343A40;     text-align:left;    	padding-left:10px;
+}
+#joinForm_wrap table td {width: 360px; border-bottom: 1px solid #E9ECEF;}
+#lasttd {text-align: center; border-bottom: 1px solid #FFFFFF;}
+.mkname, .mename, .mid, .mpw, .mpwChk, .mbirth, .mtel, .memail, .mgender, .mnation {
+	border: 1px solid #FFFFFF; height:30px;	width:95%; padding:3px; background-color: #E9ECEF;
+}
+.mailSend  {height: 60px;}
+.joinBtn_style {
+	color: #000000;        background: #50BCDF;
+	border:0;                outline: none;
+	width:40%;               padding:5px 0;        
+	cursor: pointer;		
+}
+input:focus {
+    outline: 1px solid #50BCDF;
+}

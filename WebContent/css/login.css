@@ -1,0 +1,27 @@
+@charset "UTF-8";
+#content_form {
+			width: 400px; height:480px; 
+			margin: 20px auto 0px;
+	}
+#idConfirmResult, #pwChkResult, #emailConfirmResult{text-align: left; padding-left: 30px;}
+
+#content_form table {border: 1px solid #003300; width:70%; margin: 60px auto;}
+#content_form table tr { background-color: #ffffaa; height:40px; }
+#content_form table tr:hover { 
+	/*background-color: #FFFFFF;
+	cursor: pointer; */
+}
+#content_form td, #content_form th {text-align: center; padding:5px; }
+#content_form caption {font-size: 18px; padding:10px;}
+#content_form h2, #content_form b{text-align: center; color:red;}
+#content_form a { text-decoration: none; color:black}
+#content_form .left{text-align: left;}
+#content_form .paging {text-align: center;}
+#content_form input:not(.btn), #content_form textarea {
+	width: 90%;
+}
+.btn {
+	color: #ffffff;        	background: #003300;
+	border:0;               outline: none;
+	width:40%;              padding:5px 0; 
+}

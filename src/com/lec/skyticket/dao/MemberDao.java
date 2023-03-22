@@ -16,8 +16,8 @@ import com.lec.skyticket.dto.MemberDto;
 public class MemberDao {
 	public static int SUCCESS = 1;
 	public static int FAIL    = 0;
-	public static int NONE_DUPLI    = 1;
 	public static int DUPLI         = 0;
+	public static int NONE_DUPLI    = 1;
 	private static MemberDao INSTANCE = new MemberDao();
 	public static MemberDao getInstance() {
 		return INSTANCE;

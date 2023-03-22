@@ -73,18 +73,27 @@ UPDATE BOARD
 
 -- 7. 답변글 쓰기
 INSERT INTO BOARD (bID, mID, bSUBJECT, bCONTENT, bFILE, bIP, bGROUP, bSTEP, bINDENT, bRDATE)
-    VALUES (BOARD_SEQ.NEXTVAL, 'aaa', '답변이야', '답변본문이야', 'NOIMAGE.JPG', '202-221-22-2', 1, 0, 0, '2020-02-28');
+    VALUES (BOARD_SEQ.NEXTVAL, 'aaa', '답변이야', '답변본문이야', 'NOIMAGE.JPG', '202-221-22-2', 1, 1, 1, '2020-02-28');
 
 -- 8. 글 삭제하기
 DELETE FROM BOARD WHERE bID = '1';
 
--- 8. 회원탈퇴시 탈퇴하는 회원이 쓴 글 모두 삭제하기
+-- 9. 회원탈퇴시 탈퇴하는 회원이 쓴 글 모두 삭제하기
 DELETE FROM BOARD
     WHERE mID = 'aaa';
 
-
-
-
+-- 10. 글 검색기능
+SELECT * 
+    FROM BOARD 
+    WHERE bSUBJECT LIKE '%'||'이야'||'%' AND bSTEP = 0;
+    
+SELECT * 
+    FROM (SELECT ROWNUM RW, A.*
+            FROM (SELECT * 
+                    FROM BOARD
+                    WHERE bSUBJECT LIKE '%'||'이야'||'%' AND bSTEP = 0
+                    ORDER BY BGROUP DESC, BSTEP) A)
+    WHERE RW BETWEEN 1 AND 1;
 
 
 

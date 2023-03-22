@@ -6,6 +6,7 @@ public class MTicketDto {
 	private int rvnum;
 	private int atid;
 	private String mid;
+	private int mtseat;
 	private String mtservice;
 	private String actname;
 	private String dctname;
@@ -22,12 +23,13 @@ public class MTicketDto {
 	private int    plseat;
 	
 	public MTicketDto() {}
-	public MTicketDto(int rvnum, int atid, String mid, String mtservice, String actname, String dctname, int plnum,
-			String atprice, Timestamp atatime, Timestamp atdtime, String atphoto, String actcode, String dctcode,
-			String plcom, String plcomcode, String plname, int plseat) {
+	public MTicketDto(int rvnum, int atid, String mid, int mtseat, String mtservice, String actname, String dctname,
+			int plnum, String atprice, Timestamp atatime, Timestamp atdtime, String atphoto, String actcode,
+			String dctcode, String plcom, String plcomcode, String plname, int plseat) {
 		this.rvnum = rvnum;
 		this.atid = atid;
 		this.mid = mid;
+		this.mtseat = mtseat;
 		this.mtservice = mtservice;
 		this.actname = actname;
 		this.dctname = dctname;
@@ -42,13 +44,14 @@ public class MTicketDto {
 		this.plcomcode = plcomcode;
 		this.plname = plname;
 		this.plseat = plseat;
-	}	
-	public MTicketDto(int rvnum, int atid, String mid, String mtservice, String actname, String dctname, int plnum,
-			String atprice, Timestamp atatime, Timestamp atdtime, String atphoto) {
+	}
+	public MTicketDto(int rvnum, int atid, String mid, int mtseat, String mtservice, String actname, String dctname,
+			int plnum, String atprice, Timestamp atatime, Timestamp atdtime, String atphoto) {
 		super();
 		this.rvnum = rvnum;
 		this.atid = atid;
 		this.mid = mid;
+		this.mtseat = mtseat;
 		this.mtservice = mtservice;
 		this.actname = actname;
 		this.dctname = dctname;
@@ -57,17 +60,23 @@ public class MTicketDto {
 		this.atatime = atatime;
 		this.atdtime = atdtime;
 		this.atphoto = atphoto;
+	}	
+	public MTicketDto(int rvnum, int atid, String mid, int mtseat, String mtservice) {
+		super();
+		this.rvnum = rvnum;
+		this.atid = atid;
+		this.mid = mid;
+		this.mtseat = mtseat;
+		this.mtservice = mtservice;
 	}
-	
 	@Override
 	public String toString() {
-		return "MTicketDto [rvnum=" + rvnum + ", atid=" + atid + ", mid=" + mid + ", mtservice=" + mtservice
-				+ ", actname=" + actname + ", dctname=" + dctname + ", plnum=" + plnum + ", atprice=" + atprice
-				+ ", atatime=" + atatime + ", atdtime=" + atdtime + ", atphoto=" + atphoto + ", actcode=" + actcode
-				+ ", dctcode=" + dctcode + ", plcom=" + plcom + ", plcomcode=" + plcomcode + ", plname=" + plname
-				+ ", plseat=" + plseat + "]";
+		return "MTicketDto [rvnum=" + rvnum + ", atid=" + atid + ", mid=" + mid + ", mtseat=" + mtseat + ", mtservice="
+				+ mtservice + ", actname=" + actname + ", dctname=" + dctname + ", plnum=" + plnum + ", atprice="
+				+ atprice + ", atatime=" + atatime + ", atdtime=" + atdtime + ", atphoto=" + atphoto + ", actcode="
+				+ actcode + ", dctcode=" + dctcode + ", plcom=" + plcom + ", plcomcode=" + plcomcode + ", plname="
+				+ plname + ", plseat=" + plseat + "]";
 	}
-	
 	public int getRvnum() {
 		return rvnum;
 	}
@@ -85,6 +94,12 @@ public class MTicketDto {
 	}
 	public void setMid(String mid) {
 		this.mid = mid;
+	}
+	public int getMtseat() {
+		return mtseat;
+	}
+	public void setMtseat(int mtseat) {
+		this.mtseat = mtseat;
 	}
 	public String getMtservice() {
 		return mtservice;
@@ -169,6 +184,6 @@ public class MTicketDto {
 	}
 	public void setPlseat(int plseat) {
 		this.plseat = plseat;
-	}	
+	}
 	
 }

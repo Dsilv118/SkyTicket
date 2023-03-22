@@ -38,15 +38,16 @@ public class MTicketDao {
 		int result = FAIL;
 		Connection         conn = null;
 		PreparedStatement pstmt = null;
-		String sql = "INSERT INTO MEMBER_TICKET (rvNUM, atID, mID, mtSERVICE) " + 
+		String sql = "INSERT INTO MEMBER_TICKET (rvNUM, atID, mID, mtSEAT, mtSERVICE) " + 
 					 "    VALUES (MEMBER_SEQ.NEXTVAL || TO_CHAR(SYSDATE, 'MMDD'), " + 
-					 "            ?, ?, ?)";
+					 "            ?, ?, ?, ?);";
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, mtDto.getAtid());
 			pstmt.setString(2, mtDto.getMid());
-			pstmt.setString(3, mtDto.getMtservice());
+			pstmt.setInt(3, mtDto.getMtseat());
+			pstmt.setString(4, mtDto.getMtservice());
 			pstmt.executeUpdate();
 			result = SUCCESS;
 			System.out.println("예약 추가 성공");
@@ -122,7 +123,7 @@ public class MTicketDao {
 		String sql = "UPDATE PLANE " + 
 					 "    SET pLSEAT = (SELECT P.pLSEAT FROM MEMBER_TICKET MT, AIRLINE_TICKET AT, PLANE P " + 
 					 "                    WHERE MT.atID = AT.atID AND AT.pLNUM = P.pLNUM AND rVNUM = ?) + ? " + 
-					 "    WHERE pLNUM = (SELECT P.pLNUM FROM AIRLINE_TICKET AT, PLANE P\r\n" + 
+					 "    WHERE pLNUM = (SELECT P.pLNUM FROM AIRLINE_TICKET AT, PLANE P " + 
 					 "                    WHERE AT.pLNUM = P.pLNUM AND atID = ?)";
 		try {
 			conn  = getConnection();
@@ -178,7 +179,7 @@ public class MTicketDao {
 		Connection         conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet            rs = null;
-		String sql = "SELECT *\r\n" + 
+		String sql = "SELECT * " + 
 					 "    FROM (SELECT ROWNUM RW, A.* FROM (SELECT MT.*, aCTNAME, dCTNAME, ATATIME, ATDTIME " + 
 					 "                                        FROM MEMBER_TICKET MT, AIRLINE_TICKET AT " + 
 					 "                                        WHERE MT.atID = AT.atID AND mID = ? " + 
@@ -192,17 +193,18 @@ public class MTicketDao {
 			pstmt.setInt(3, endRow);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				int rvnum = rs.getInt("rvnum");
-				int atid  = rs.getInt("atid");
-				String mtservice = rs.getString("mtservice");
-				String actname = rs.getString("actname");
-				String dctname = rs.getString("dctname");
-				int plnum = rs.getInt("plnum");
-				String atprice = rs.getString("atprice");
+				int rvnum         = rs.getInt("rvnum");
+				int atid          = rs.getInt("atid");
+				int mtseat        = rs.getInt("mtseat");
+				String mtservice  = rs.getString("mtservice");
+				String actname    = rs.getString("actname");
+				String dctname    = rs.getString("dctname");
+				int plnum         = rs.getInt("plnum");
+				String atprice    = rs.getString("atprice");
 				Timestamp atatime = rs.getTimestamp("atatime");
 				Timestamp atdtime = rs.getTimestamp("atdtime");
-				String atphoto = rs.getString("atphoto");
-				mtdto.add(new MTicketDto(rvnum, atid, mid, mtservice, actname, dctname, plnum, atprice, atatime, atdtime, atphoto));
+				String atphoto    = rs.getString("atphoto");
+				mtdto.add(new MTicketDto(rvnum, atid, mid, mtseat, mtservice, actname, dctname, plnum, atprice, atatime, atdtime, atphoto));
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage() + "list 오류");
@@ -233,23 +235,24 @@ public class MTicketDao {
 			pstmt.setInt(1, rvnum);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				int atid = rs.getInt("atid");
-				String mid = rs.getString("mid");
+				int atid         = rs.getInt("atid");
+				String mid       = rs.getString("mid");
+				int mtseat       = rs.getInt("mtseat");
 				String mtservice = rs.getString("mtservice");
-				String actname = rs.getString("actname");
-				String dctname = rs.getString("dctname");
-				int plnum = rs.getInt("plnum");
-				String atprice = rs.getString("atprice");
+				String actname   = rs.getString("actname");
+				String dctname   = rs.getString("dctname");
+				int plnum        = rs.getInt("plnum");
+				String atprice   = rs.getString("atprice");
 				Timestamp atatime = rs.getTimestamp("atatime");
 				Timestamp atdtime = rs.getTimestamp("atdtime");
-				String atphoto = rs.getString("atphoto");
-				String actcode = rs.getString("actcode");
-				String dctcode = rs.getString("dctcode");
-				String plcom = rs.getString("plcom");
+				String atphoto   = rs.getString("atphoto");
+				String actcode   = rs.getString("actcode");
+				String dctcode   = rs.getString("dctcode");
+				String plcom     = rs.getString("plcom");
 				String plcomcode = rs.getString("plcomcode");
-				String plname = rs.getString("plname");
-				int plseat = rs.getInt("plseat");
-				mtdto = new MTicketDto(rvnum, atid, mid, mtservice, actname, dctname, plnum, atprice, 
+				String plname    = rs.getString("plname");
+				int plseat       = rs.getInt("plseat");
+				mtdto = new MTicketDto(rvnum, atid, mid, mtseat, mtservice, actname, dctname, plnum, atprice, 
 									   atatime, atdtime, atphoto, actcode, dctcode, plcom, plcomcode, plname, plseat);
 			}
 		} catch (SQLException e) {
