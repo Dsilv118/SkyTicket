@@ -33,7 +33,8 @@ public class FrontController extends HttpServlet {
 		Service service = null;
 		if(command.equals("/main.do")) { // 첫 메인화면
 			viewPage = "Main/main.jsp";
-		} else if(command.equals("/joinView.do")) {
+		} else if(command.equals("/joinView.do")) { 
+			/*          Member 관련 요청                */
 			viewPage = "Member/join.jsp";
 			joinView = true;
 		} else if(command.equals("/midConfirm.do")) {
@@ -49,11 +50,40 @@ public class FrontController extends HttpServlet {
 			service.execute(request, response);
 			viewPage = "Member/mtelConfirm.jsp";
 		} else if(command.equals("/join.do")) {
-			service = new JoinService();
-			service.execute(request, response);
+			if(joinView) {
+				service = new JoinService();
+				service.execute(request, response);
+				joinView = false;
+			}
 			viewPage = "loginView.do";
 		} else if(command.equals("/loginView.do")) {
 			viewPage = "Member/login.jsp";
+			joinView = true;
+		} else if(command.equals("/login.do")) {
+			if (joinView) {
+				service = new MLoginService();
+				service.execute(request, response);
+				joinView = false;
+			}
+			viewPage ="Main/main.jsp";
+		} else if(command.equals("/logout.do")) {
+			service = new MLogoutService();
+			service.execute(request, response);
+			viewPage = "Main/main.jsp";
+		} else if(command.equals("/modifyView.do")) {
+			viewPage = "Member/modify.jsp";
+		} else if(command.equals("/modify.do")) {
+			service = new MModifyService();
+			service.execute(request, response);
+			viewPage = "Main/main.jsp";
+		} else if(command.equals("/withdrawal.do")) {
+			service = new MWithdrawalService();
+			service.execute(request, response);
+			viewPage = "Main/main.jsp";
+		} else if(command.equals("/adminLoginView.do")) {
+			/*          admin 관련 요청                */
+			viewPage = "Admin/adminLoginView.jsp";
+			joinView = true;
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);

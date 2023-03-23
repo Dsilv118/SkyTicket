@@ -21,18 +21,15 @@ public class JoinService implements Service {
 		String mename = request.getParameter("mename");
 		String mtel = request.getParameter("mtel");
 		String memail = request.getParameter("memail");
-		Date mbirth = null;
-		if(request.getParameter("mbirth").equals("")) {
-			mbirth = null;
-		} else {
-			mbirth = Date.valueOf(request.getParameter("mbirth"));
-		}
+		System.out.println(request.getParameter("mbirth"));
+		Date mbirth = Date.valueOf(request.getParameter("mbirth"));
 		String mgender = request.getParameter("mgender");
 		String mnation = request.getParameter("mnation");
 		MemberDto newMember = new MemberDto(mid, mpw, mkname, mename, mtel, memail, mbirth, mgender, mnation);
 		result = mDao.joinMember(newMember);
 		HttpSession session = request.getSession();
 		session.setAttribute("mid", mid);
+		request.setAttribute("joinResult", result);
 	}
 
 }

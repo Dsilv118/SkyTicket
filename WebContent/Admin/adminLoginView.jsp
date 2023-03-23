@@ -26,7 +26,7 @@
 	<div id="content_form">
 		<form action="login.do" method="post">
 			<table>
-				<caption>로그인</caption>
+				<caption>관리자 로그인</caption>
 				<tr>
 					<td>
 						<input type="text" name="mid" id="mid" required="required" autofocus="autofocus" value="${mid }" placeholder="아이디">
@@ -43,7 +43,6 @@
 					</td>
 				</tr>
 			</table>
-			<p><a href="joinView.do">회원가입</a>&nbsp; <span class="light">I<span></span> &nbsp;<a href="adminLoginView.do">관리자모드</a></p>
 		</form>
 	</div>
 	<jsp:include page="../Main/footer.jsp"/>
