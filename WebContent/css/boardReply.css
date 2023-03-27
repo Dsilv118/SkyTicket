@@ -1,0 +1,76 @@
+@charset "UTF-8";
+#boardReply_Form {
+	width: 1000px; 
+	height:580px; 
+	margin: 40px auto;
+}
+#boardReply_Form table {
+	width:90%; 
+	margin: 0px auto;
+}
+#boardReply_Form table tr { 
+	background-color: #FFFFFF; 
+	height:40px; 
+}
+#boardReply_Form td {
+	text-align: center; 
+	padding:5px; 
+}
+#boardReply_Form table caption {
+	font-size: 30px; 
+	padding: 30px;
+	margin: 0 0 50px 0;
+	border-bottom: 1px solid #50BCDF;
+	text-align: left;
+}
+#boardReply_Form a { 
+	text-decoration: none; 
+	color: black;
+}
+#boardReply_Form .left{
+	text-align: left;
+}
+#boardReply_Form .paging {
+	text-align: center;
+}
+#boardReply_Form textarea {
+	width: 75%;
+	height: 110px;
+	padding: 12px;
+	margin: 0 10px 10px 0;
+	background-color: #F1F3F5;
+	border: none;
+}
+#boardReply_Form tr:nth-child(1) input {
+	width: 77%;
+	height: 40px;
+	line-height: 40px;
+	padding-left: 12px;
+	margin: 0 10px 18px 0;
+	background-color: #FFFFFF;
+	border: none;
+	border-bottom: 1px solid #CED4DA;
+}
+placeholder {
+	font-weight: bold;
+}
+.btn {
+	color: #ffffff;        	
+	background: #50BCDF;
+	border: 0;               
+	outline: none;
+	width: 20%;              
+	padding: 5px 0; 
+	text-align: center;     
+	margin: 30px 0 30px;
+	cursor: pointer;
+	color: black;
+}
+.btn:nth-child(2) {
+	margin-left: 10px;
+	background-color: white;
+	border: 1px solid #50BCDF;
+}
+input:focus, #boardwrite_form textarea:focus {
+    outline: 1px solid #50BCDF;
+}

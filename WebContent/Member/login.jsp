@@ -43,7 +43,7 @@
 					</td>
 				</tr>
 			</table>
-			<p><a href="joinView.do">회원가입</a>&nbsp; <span class="light">I<span></span> &nbsp;<a href="adminLoginView.do">관리자모드</a></p>
+			<p><a href="joinView.do">회원가입</a>&nbsp; <span class="light">I</span> &nbsp;<a href="adminLoginView.do">관리자모드</a></p>
 		</form>
 	</div>
 	<jsp:include page="../Main/footer.jsp"/>

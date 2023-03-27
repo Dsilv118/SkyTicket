@@ -38,14 +38,35 @@
 		</script>
 	</c:if>
 	<jsp:include page="../Main/header.jsp"/>
-	<div id="schTicket">
-		<form action="atList.do" method="post">
-			<table>
-				<tr>
-					<td>하이</td><td>하이</td>
-				</tr>
-			</table>
-		</form>
+	<div id="main_wrap">
+		<div style="text-align: center;">
+			<img src="img\AD.png" alt="광고 이미지" style="width: 1000px;">
+		</div>
+		<div id="schTicket">
+			<form action="atList.do" method="post">
+				<table>
+					<tr>
+						<td colspan="4" style="text-align: left; font-size: 1.5em; font-weight: bold;">
+							편도  &nbsp; &nbsp; 성인
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="text" name="actname" placeholder="출발 도시">
+						</td>
+						<td>
+							<input type="text" name="dctname" placeholder="도착 도시">
+						</td>
+						<td>
+							<input type="text" name="atatime" placeholder="가는 날짜">
+						</td>
+						<td style="text-align: left;">
+							<input type="submit" value="검색" class="btn" >
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
 	</div>
 	<jsp:include page="../Main/footer.jsp"/>
 </body>

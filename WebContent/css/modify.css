@@ -1,17 +1,17 @@
 @charset "UTF-8";
 #modifyForm_wrap {
-	width:760px; 
+	width:1000px; 
 	margin: 10px auto; 
 	padding:20px;
 }
 #modify_title{
-	width:760px;            	
+	width:940px;            	
 	margin:30px auto;
 	padding-bottom:20px;     	
 	border-bottom:1px solid #50BCDF;
 	color: #000000;         
 	font-size:2em;
-	text-align:center;       
+	text-align: center;       
 }
 #modifyForm_wrap table{
 	margin:0 auto; 
@@ -41,6 +41,7 @@
 	padding: 3px 3px 3px 20px; 
 	margin: 5px 0;
 	background-color: #E9ECEF;
+	outline: #E9ECEF;
 }
 input[type=radio] {
 	margin: 0 0 0 80px;
@@ -49,8 +50,7 @@ input[type=radio] {
 	color: #000000;       
 	background: #50BCDF;
 	border:0;               
-	outline: none;
-	width:40%;              
+	width:30%;              
 	padding:5px 0;        
 	cursor: pointer;				
 	height:40px;
@@ -58,17 +58,20 @@ input[type=radio] {
 #lasttd input:nth-child(2) {
 	background: #FFFFFF; 
 	border: 1px solid #50BCDF;
-	margin: 0 0 0 10px;  
+	margin: 30px 0 0 10px;  
 	}
-input:focus:nth-child(1) {
-    outline: 1px solid white;
+input:focus {
+    outline: 1px solid #50BCDF;
+}
+table tr:nth-child(1) td input:focus {
+    outline: none;
 }
 #idConfirmResult, #pwChkResult, #telConfirmResult, #emailConfirmResult {
 	font-size: 0.8em;
 }
 p {
 	margin-top: 50px;
-	margin-left: 600px;
+	margin-left: 710px;
 }
 p a {
 	color: #868E96;

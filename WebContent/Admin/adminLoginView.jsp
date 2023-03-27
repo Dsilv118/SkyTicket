@@ -11,30 +11,19 @@
 	<link href="${conPath }/css/login.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-	<c:set var="SUCCESS" value="1"/>
-	<c:set var="FAIL" value="0"/>
-	<c:if test="${joinResult eq SUCCESS}">
-		<script>alert('회원가입되었습니다. 감사합니다')</script>
-	</c:if>
-	<c:if test="${joinResult eq FAIL}">
-		<script>
-			alert('회원가입 실패되었습니다. 다시 확인해주세요');
-			location.href = '${conPath }/joinView.do';
-		</script>
-	</c:if>
 	<jsp:include page="../Main/header.jsp"/>
 	<div id="content_form">
-		<form action="login.do" method="post">
+		<form action="adminLogin.do" method="post">
 			<table>
 				<caption>관리자 로그인</caption>
 				<tr>
 					<td>
-						<input type="text" name="mid" id="mid" required="required" autofocus="autofocus" value="${mid }" placeholder="아이디">
+						<input type="text" name="adid" id="adid" required="required" autofocus="autofocus" value="${mid }" placeholder="아이디">
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<input type="password" name="mpw" id="mpw" required="required" placeholder="비밀번호">
+						<input type="password" name="adpw" id="adpw" required="required" placeholder="비밀번호">
 					</td>
 				</tr>
 				<tr>
@@ -43,6 +32,7 @@
 					</td>
 				</tr>
 			</table>
+			<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a href="loginView.do">일반회원 로그인</a></p>
 		</form>
 	</div>
 	<jsp:include page="../Main/footer.jsp"/>

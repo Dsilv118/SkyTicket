@@ -12,10 +12,15 @@
 	*{
 		padding:0; margin: 0;
 	}
+	::selection { 
+		color:black; 
+		background:#50BCDF; 
+	}
 	header { 
 		background-color: #50BCDF; 
 		font-size: 10pt; 
-		height: 138px;
+		height: 120px;
+		margin-bottom: 20px;
 	}
 	header a {
 		text-decoration: none; 
@@ -30,8 +35,8 @@
 	}
 	header .gnb ul {
 		overflow: hidden;
-		width: 800px;
-		height: 30px;
+		width: 1000px;
+		height: 21px;
 		line-height: 30px;
 		margin: 0 auto;
 	}
@@ -47,10 +52,10 @@
 		padding-right: 15px;
 	}
 	header .logo{
-		width: 800px; 
+		width: 1000px; 
 		text-align: center;
-		margin: 5px auto;
-		font-size: 2em;
+		margin: 0 auto;
+		font-size: 2.2em;
 		cursor: pointer; 
 		color: white;
 		font-weight: bold;
@@ -61,8 +66,8 @@
 	}
 	header .lnb ul{
 		overflow: hidden;
-		width:800px;
-		margin: 20px auto;
+		width: 1000px;
+		margin: 15px auto 10px;
 	}
 	header .lnb ul>li>a {
 		width: 32%;
@@ -104,7 +109,7 @@
 		<div class="gnb">
 			<ul>
 				<li><a href="${conPath }/logout.do">관리자모드나가기</a></li>
-				<li><a>${admin.aname }님 &nbsp; ▶</a></li>	
+				<li><a>${admin.adname }님 &nbsp; ▶</a></li>	
 			</ul>
 		</div>
 	</c:if>
@@ -120,7 +125,7 @@
 				<a href="${conPath }/boardList.do">예약내역</a>
 			</li>
 			<li>
-				<a href="${conPath }/boardList.do">고객센터</a>
+				<a href="${conPath }/boardList.do">문의하기</a>
 			</li>
 		</ul>
 	</div>

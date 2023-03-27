@@ -10,14 +10,14 @@
 <title>Insert title here</title>
 <style>
 	footer {
-		width: 800px; 
-		height:60px; 
-		margin: 150px auto 0; 
+		width: 1000px; 
+		height:100px; 
+		margin: 250px auto 0; 
 		background-color: #FFFFFF;
 	}
 	footer #footer_conts, footer #footer_conts{
 		color: #50BCDF;
-		font-weight: blod;
+		font-weight: bold;
 		font-size: 0.9em;
 		text-align: center;
 	}

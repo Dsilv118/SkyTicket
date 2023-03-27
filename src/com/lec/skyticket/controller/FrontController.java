@@ -14,7 +14,7 @@ import com.lec.skyticket.service.*;
 @WebServlet("*.do")
 public class FrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private boolean joinView = false;
+	private boolean controlView = false;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		actionDo(request, response);
@@ -36,7 +36,7 @@ public class FrontController extends HttpServlet {
 		} else if(command.equals("/joinView.do")) { 
 			/*          Member 관련 요청                */
 			viewPage = "Member/join.jsp";
-			joinView = true;
+			controlView = true;
 		} else if(command.equals("/midConfirm.do")) {
 			service = new MidConfirmService();
 			service.execute(request, response);
@@ -50,20 +50,20 @@ public class FrontController extends HttpServlet {
 			service.execute(request, response);
 			viewPage = "Member/mtelConfirm.jsp";
 		} else if(command.equals("/join.do")) {
-			if(joinView) {
+			if(controlView) {
 				service = new JoinService();
 				service.execute(request, response);
-				joinView = false;
+				controlView = false;
 			}
 			viewPage = "loginView.do";
 		} else if(command.equals("/loginView.do")) {
 			viewPage = "Member/login.jsp";
-			joinView = true;
+			controlView = true;
 		} else if(command.equals("/login.do")) {
-			if (joinView) {
+			if (controlView) {
 				service = new MLoginService();
 				service.execute(request, response);
-				joinView = false;
+				controlView = false;
 			}
 			viewPage ="Main/main.jsp";
 		} else if(command.equals("/logout.do")) {
@@ -83,7 +83,49 @@ public class FrontController extends HttpServlet {
 		} else if(command.equals("/adminLoginView.do")) {
 			/*          admin 관련 요청                */
 			viewPage = "Admin/adminLoginView.jsp";
-			joinView = true;
+			controlView = true;
+		} else if(command.equals("/adminLogin.do")) {
+			service = new ADLoginService();
+			service.execute(request, response);
+			viewPage = "main.do";
+		} else if(command.equals("/boardList.do")) {
+			service = new BoardListService();
+			service.execute(request, response);
+			viewPage = "Board/boardList.jsp";
+		} else if(command.equals("/boardListMs.do")) {
+			service = new BoardListMsService();
+			service.execute(request, response);
+			viewPage = "Board/boardListMs.jsp";
+		} else if(command.equals("/boardWriteView.do")) {
+			viewPage = "Board/boardWrite.jsp";
+			controlView = true;
+		} else if(command.equals("/boardWrite.do")) {
+			if(controlView) {
+				service = new BoardWriteService();
+				service.execute(request, response);
+				controlView = false;
+			}
+			viewPage = "boardList.do";
+		} else if(command.equals("/boardContent.do")) {
+			service = new BoardContentService();
+			service.execute(request, response);
+			viewPage = "Board/boardContent.jsp";
+			controlView = true;
+		} else if(command.equals("/boardDelete.do")) {
+			if(controlView) {
+				service = new BoardDeleteService();
+				service.execute(request, response);
+				controlView = false;
+			}
+			viewPage = "boardList.do";
+		} else if(command.equals("/boardReplyView.do")) {
+			service = new BoardReplyViewService();
+			service.execute(request, response);
+			viewPage = "Board/boardReply.jsp";
+		} else if(command.equals("/boardReply.do")) {
+			service = new BoardReplyService();
+			service.execute(request, response);
+			viewPage = "boardList.do";
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);

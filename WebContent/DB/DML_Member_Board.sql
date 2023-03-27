@@ -44,7 +44,7 @@ DELETE FROM MEMBER WHERE mID='aaa';
 SELECT * 
     FROM (SELECT ROWNUM RW, A.* FROM (SELECT B.*, MkNAME 
                                         FROM BOARD B, MEMBER M
-                                        WHERE B.mID = M.mID
+                                        WHERE B.mID = M.mID 
                                         ORDER BY BGROUP DESC, BSTEP) A)
     WHERE RW BETWEEN 1 AND 7;
 
@@ -60,40 +60,32 @@ SELECT B.*, mkNAME
     FROM BOARD B, MEMBER M
     WHERE B.mID = M.mID AND bID = 1;
     
--- 5. 글 수정하기
-UPDATE BOARD SET bSUBJECT = '수정된 제목이야',
-                 bCONTENT = '수정된 본문이야',
-                 bFILE    = 'NOIMAGE.JPG'
-    WHERE bID = 1;
-    
--- 6. 답변글 쓰기 전 작업
+-- 5. 답변글 쓰기 전 작업
 UPDATE BOARD
     SET bSTEP = bSTEP + 1
     WHERE bGROUP = '2' AND bSTEP > 0;
 
--- 7. 답변글 쓰기
+-- 6. 답변글 쓰기
 INSERT INTO BOARD (bID, mID, bSUBJECT, bCONTENT, bFILE, bIP, bGROUP, bSTEP, bINDENT, bRDATE)
     VALUES (BOARD_SEQ.NEXTVAL, 'aaa', '답변이야', '답변본문이야', 'NOIMAGE.JPG', '202-221-22-2', 1, 1, 1, '2020-02-28');
 
--- 8. 글 삭제하기
+-- 7. 글 삭제하기
 DELETE FROM BOARD WHERE bID = '1';
 
--- 9. 회원탈퇴시 탈퇴하는 회원이 쓴 글 모두 삭제하기
+-- 8. 회원탈퇴시 탈퇴하는 회원이 쓴 글 모두 삭제하기
 DELETE FROM BOARD
     WHERE mID = 'aaa';
 
--- 10. 글 검색기능
+-- 8. 특정 아이디 전체 글 갯수
+SELECT COUNT(*) FROM BOARD WHERE MID = 'aaa';
+
+-- 9. 특정 아이디 문의 게시글 리스트 출력
 SELECT * 
-    FROM BOARD 
-    WHERE bSUBJECT LIKE '%'||'이야'||'%' AND bSTEP = 0;
-    
-SELECT * 
-    FROM (SELECT ROWNUM RW, A.*
-            FROM (SELECT * 
-                    FROM BOARD
-                    WHERE bSUBJECT LIKE '%'||'이야'||'%' AND bSTEP = 0
-                    ORDER BY BGROUP DESC, BSTEP) A)
-    WHERE RW BETWEEN 1 AND 1;
+    FROM (SELECT ROWNUM RW, A.* FROM (SELECT B.*, MkNAME 
+                                        FROM BOARD B, MEMBER M
+                                        WHERE B.mID = M.mID AND M.mID = 'bbb'
+                                        ORDER BY BGROUP DESC, BSTEP) A)
+    WHERE RW BETWEEN 1 AND 7;
 
 
 
