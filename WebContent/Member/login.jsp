@@ -23,7 +23,7 @@
 		</script>
 	</c:if>
 	<jsp:include page="../Main/header.jsp"/>
-	<div id="content_form">
+	<div id="login_form">
 		<form action="login.do" method="post">
 			<table>
 				<caption>로그인</caption>

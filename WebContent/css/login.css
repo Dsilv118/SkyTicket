@@ -1,60 +1,61 @@
 @charset "UTF-8";
-#content_form {
+#login_form {
 	width: 1000px; 
 	height:480px; 
-	margin: 20px auto 0px;
+	margin: 20px auto 120px;
 	}
 #idConfirmResult, #pwChkResult, #emailConfirmResult{
 	text-align: left; 
 	padding-left: 30px;
 }
-#content_form table {
+#login_form table {
 	width:70%; 
 	margin: 60px auto 0;
 }
-#content_form table tr { 
+#login_form table tr { 
 	background-color: #FFFFFF; 
 	height:100px; 
 }
-#content_form td, #content_form th {
+#login_form td, #content_form th {
 	text-align: center; 
 	padding:5px; 
 }
-#content_form caption {
+#login_form caption {
 	font-size: 2.6em; 
 	padding: 10px;
 	margin-bottom: 10px;
 	color: #50BCDF;
 }
-#content_form h2, #content_form b{
+#login_form h2, #content_form b{
 	text-align: center; 
 	color:red;
 }
-#content_form a { 
+#login_form a { 
 	text-decoration: none; 
 	color:black;
 }
-#content_form .left{
+#login_form .left{
 	text-align: left;
 }
-#content_form .paging {
+#login_form .paging {
 	text-align: center;
 }
-#content_form input:not(.btn) {
+#login_form input:not(.btn) {
 	width: 60%; 
 	height: 55px; 
 	background-color: #F1F3F5;
 	border: none;
 	font-size: 1.1em;
+	font-weight: bold;
 	padding-left: 20px;
 }
-#content_form input::placeholder {
+#login_form input::placeholder {
 	font-weight: bold;
 }
-#content_form input:focus {
+#login_form input:focus {
 	outline: 1px solid #50BCDF;
 }
-#content_form .btn {
+#login_form .btn {
 	color: #000000;        	
 	background: #50BCDF;
 	border: 0;              
@@ -64,8 +65,8 @@
 	height: 40px;
 	cursor: pointer;
 }
-#content_form p {
-	margin: 23px 0 100px 572px;
+#login_form p {
+	margin: 23px 0 0 572px;
 	font-size: 0.8em;
 	color: #333333;
 }

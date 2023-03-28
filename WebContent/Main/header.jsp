@@ -119,7 +119,7 @@
 	<div class="lnb">
 		<ul>
 			<li>
-				<a href="${conPath }/boardList.do">항공예매</a>
+				<a href="${conPath }/main.do">항공예매</a>
 			</li>
 			<li>
 				<a href="${conPath }/boardList.do">예약내역</a>

@@ -32,7 +32,11 @@ DELETE FROM AIRLINE_TICKET
     AND atID = 4;
 
 -- 5. 항공권 총 갯수 파악
-SELECT COUNT(*) FROM AIRLINE_TICKET;
+SELECT COUNT(*) 
+    FROM AIRLINE_TICKET AT, CITY C1, CITY C2
+    WHERE AT.actNAME = C1.ctNAME AND AT.dctNAME = C2.ctNAME AND
+         (TO_CHAR(AT.atATIME, 'YYYYMMDD') LIKE '%'||(TO_CHAR(null, 'YYYYMMDD'))||'%') AND
+         AT.ACTNAME LIKE '%'||''||'%' AND AT.DCTNAME LIKE '%'||''||'%';
 
 -- 6. 항공권 검색 후 리스트 뿌리기 (DTO)    
 SELECT *    

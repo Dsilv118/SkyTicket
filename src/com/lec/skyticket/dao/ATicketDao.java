@@ -16,8 +16,8 @@ import javax.sql.DataSource;
 import com.lec.skyticket.dto.ATicketDto;
 
 public class ATicketDao {
-	public static int SUCCESS = 1;
-	public static int FAIL    = 0;
+	public static int SUCCESS   = 1;
+	public static int FAIL      = 0;
 	public static int NONE_DUPLI    = 1;
 	public static int DUPLI         = 0;
 	private static ATicketDao INSTANCE = new ATicketDao();
@@ -117,7 +117,7 @@ public class ATicketDao {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
 			int result = pstmt.executeUpdate();
-			System.out.println(result != FAIL ? "예약 티켓 정리 성공" : "예약 티켓 정리 실패");
+			System.out.println(result + "개 삭제 완료");
 		} catch (SQLException e) {
 			System.out.println(e.getMessage() + "예약 티켓 정리 실패");
 		} finally {
@@ -139,32 +139,9 @@ public class ATicketDao {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
 			int result = pstmt.executeUpdate();
-			System.out.println(result != FAIL ? "항공권 정리 성공" : "항공권 정리 실패");
+			System.out.println(result + "개 삭제 완료");
 		} catch (SQLException e) {
 			System.out.println(e.getMessage() + "항공권 정리 실패");
-		} finally {
-			try {
-				if(pstmt!=null) pstmt.close();
-				if(conn !=null) conn.close();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
-		} 		
-	}
-	// -- 3-3. 항공권 정리
-	public void cleanPlane() {
-		Connection         conn = null;
-		PreparedStatement pstmt = null;
-		String sql = "DELETE FROM PLANE " + 
-					 "    WHERE pLNUM NOT IN (SELECT P.pLNUM FROM AIRLINE_TICKET AT, PLANE P " + 
-					 "                            WHERE AT.pLNUM = P.pLNUM)";
-		try {
-			conn = getConnection();
-			pstmt = conn.prepareStatement(sql);
-			int result = pstmt.executeUpdate();
-			System.out.println(result != FAIL ? "항공사 삭제 성공" : "항공사 삭제 실패");
-		} catch (SQLException e) {
-			System.out.println(e.getMessage() + "항공사 삭제 실패");
 		} finally {
 			try {
 				if(pstmt!=null) pstmt.close();
@@ -198,15 +175,22 @@ public class ATicketDao {
 		} 		
 	}
 	// -- 5. 항공권 갯수 파악 
-	public int getATicketCnt() {
+	public int getATicketCnt(Timestamp atatime, String actname, String dctname) {
 		int totCnt = 0;
 		Connection         conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet            rs = null;
-		String sql = "SELECT COUNT(*) FROM AIRLINE_TICKET";
+		String sql = "SELECT COUNT(*) " + 
+					 "    FROM AIRLINE_TICKET AT, CITY C1, CITY C2 " + 
+					 "    WHERE AT.actNAME = C1.ctNAME AND AT.dctNAME = C2.ctNAME AND " + 
+					 "         (TO_CHAR(AT.atATIME, 'YYYYMMDD') LIKE '%'||(TO_CHAR(?, 'YYYYMMDD'))||'%') AND " + 
+					 "         AT.ACTNAME LIKE '%'||?||'%' AND AT.DCTNAME LIKE '%'||?||'%'";
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setTimestamp(1, atatime);
+			pstmt.setString(2, actname);
+			pstmt.setString(3, dctname);
 			rs = pstmt.executeQuery();
 			rs.next();
 			totCnt = rs.getInt(1);
