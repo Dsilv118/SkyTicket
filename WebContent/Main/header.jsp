@@ -6,85 +6,94 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<style>
-	*{
-		padding:0; margin: 0;
-	}
-	::selection { 
-		color:black; 
-		background:#50BCDF; 
-	}
-	header { 
-		background-color: #50BCDF; 
-		font-size: 10pt; 
-		height: 120px;
-		margin-bottom: 20px;
-	}
-	header a {
-		text-decoration: none; 
-		font-weight: bold;
-	}
-	header li {
-		list-style: none;
-	}
-	header .gnb{
-		width: 100%;	
-		background-color: #50BCDF;
-	}
-	header .gnb ul {
-		overflow: hidden;
-		width: 1000px;
-		height: 21px;
-		line-height: 30px;
-		margin: 0 auto;
-	}
-	header .gnb ul li {	
-		float: right;	
-		margin-right: 30px;
-	}
-	header .gnb a { 
-		color : #ffffff;
-		font-size: 0.9em;
-		display: block;
-		padding-left: 15px;
-		padding-right: 15px;
-	}
-	header .logo{
-		width: 1000px; 
-		text-align: center;
-		margin: 0 auto;
-		font-size: 2.2em;
-		cursor: pointer; 
-		color: white;
-		font-weight: bold;
-	}
-	header .lnb {
-	  width: 100%; height: 30px;
-		text-align: center;
-	}
-	header .lnb ul{
-		overflow: hidden;
-		width: 1000px;
-		margin: 15px auto 10px;
-	}
-	header .lnb ul>li>a {
-		width: 32%;
-		margin: 13px 5px 5px 5px;
-		float:left;
-		line-height: 25px;
-		cursor: pointer;
-		color: white;
-		font-size: 1.2em;
-	}
-	header .lnb li a {
-		color: #003300;
-	}
-	header .lnb li {
-		color: #003300;
-	}
-</style>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<style>
+		*{
+			padding:0; margin: 0;
+		}
+		::selection { 
+			color:black; 
+			background:#50BCDF; 
+		}
+		header { 
+			background-color: #50BCDF; 
+			font-size: 10pt; 
+			height: 120px;
+			margin-bottom: 20px;
+		}
+		header a {
+			text-decoration: none; 
+			font-weight: bold;
+		}
+		header li {
+			list-style: none;
+		}
+		header .gnb{
+			width: 100%;	
+			background-color: #50BCDF;
+		}
+		header .gnb ul {
+			overflow: hidden;
+			width: 1000px;
+			height: 21px;
+			line-height: 30px;
+			margin: 0 auto;
+		}
+		header .gnb ul li {	
+			float: right;	
+			margin-right: 30px;
+		}
+		header .gnb a { 
+			color : #ffffff;
+			font-size: 0.9em;
+			display: block;
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+		header .logo{
+			width: 1000px; 
+			text-align: center;
+			margin: 0 auto;
+			font-size: 2.2em;
+			cursor: pointer; 
+			color: white;
+			font-weight: bold;
+		}
+		header .lnb {
+		  width: 100%; height: 30px;
+			text-align: center;
+		}
+		header .lnb ul{
+			overflow: hidden;
+			width: 1000px;
+			margin: 15px auto 10px;
+		}
+		header .lnb ul>li>a {
+			width: 32%;
+			margin: 13px 5px 5px 5px;
+			float:left;
+			line-height: 25px;
+			cursor: pointer;
+			color: white;
+			font-size: 1.2em;
+		}
+		header .lnb li a {
+			color: #003300;
+		}
+		header .lnb li {
+			color: #003300;
+		}
+	</style>
+	<script>
+		$(document).ready(function(){
+			$('#log').click(function(){
+				if(${empty member} && ${empty admin}) {
+					alert('로그인 후 이용 가능합니다');
+				}
+			});
+		});
+	</script>
 </head>
 <body>
 <header>
@@ -121,8 +130,18 @@
 			<li>
 				<a href="${conPath }/main.do">항공예매</a>
 			</li>
-			<li>
-				<a href="${conPath }/boardList.do">예약내역</a>
+			<li id="log">
+				<c:if test="${not empty admin }">
+					<a href="${conPath }/atInsertView.do">항공권 등록</a>
+				</c:if>
+				<c:if test="${empty admin }">
+					<c:if test="${empty member }">
+						<a href="${conPath }/main.do">예약내역</a>
+					</c:if>
+					<c:if test="${not empty member }">
+						<a href="${conPath }/boardList.do">예약내역</a>
+					</c:if>
+				</c:if>
 			</li>
 			<li>
 				<a href="${conPath }/boardList.do">문의하기</a>

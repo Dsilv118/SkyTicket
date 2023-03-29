@@ -11,16 +11,16 @@
 <style>
 	footer {
 		width: 100%; 
-		height:200px;  
+		height:130px;  
 		background-color: #F1F3F5;
 	}
 	footer #footer_wrap {
 		width: 1000px;
 		margin: 0 auto;
-		padding-top: 25px;
+		padding-top: 15px;
 		color: #50BCDF;
 		font-weight: bold;
-		font-size: 0.9em;
+		font-size: 0.8em;
 		text-align: center;
 	}
 	footer #float_left {
@@ -33,6 +33,7 @@
 		float: left;
 		text-align: left;
 		margin-left: 201px;
+		height: 30px;
 	}
 	footer #icon img {
 		width: 32px;
@@ -62,7 +63,6 @@
 					<a href="http://www.instagram.com"><img src="icon/instagram.png"></a> &nbsp; &nbsp;
 				</div>
 			</div>
-			<br>
 			<span id="footer_logo">🆂🅺🆈🆃🅸🅲🅺🅴🆃  &nbsp;</span>
 			<span id="footer_text">Copyright© SkyTicket.Corp All rights reserved.</span>
 		</div>

@@ -3,14 +3,13 @@ package com.lec.skyticket.dto;
 import java.sql.Timestamp;
 
 public class ATicketDto {
-	private int atid;
+	private String atid;
 	private String actname;
 	private String dctname;
 	private int plnum;
 	private int atprice;
 	private Timestamp atatime;
 	private Timestamp atdtime;
-	private String atphoto;
 	private String actcode;
 	private String dctcode;
 	private String plcom;
@@ -19,8 +18,8 @@ public class ATicketDto {
 	private int plseat;
 	
 	public ATicketDto() {}
-	public ATicketDto(int atid, String actname, String dctname, int plnum, int atprice, Timestamp atatime,
-			Timestamp atdtime, String atphoto, String actcode, String dctcode, String plcom, String plcomcode,
+	public ATicketDto(String atid, String actname, String dctname, int plnum, int atprice, Timestamp atatime,
+			Timestamp atdtime, String actcode, String dctcode, String plcom, String plcomcode,
 			String plname, int plseat) {
 		this.atid = atid;
 		this.actname = actname;
@@ -29,7 +28,6 @@ public class ATicketDto {
 		this.atprice = atprice;
 		this.atatime = atatime;
 		this.atdtime = atdtime;
-		this.atphoto = atphoto;
 		this.actcode = actcode;
 		this.dctcode = dctcode;
 		this.plcom = plcom;
@@ -37,8 +35,8 @@ public class ATicketDto {
 		this.plname = plname;
 		this.plseat = plseat;
 	}
-	public ATicketDto(int atid, String actname, String dctname, int plnum, int atprice, Timestamp atatime,
-			Timestamp atdtime, String atphoto, String plcom, String plcomcode, String plname, int plseat) {
+	public ATicketDto(String atid, String actname, String dctname, int plnum, int atprice, Timestamp atatime,
+			Timestamp atdtime, String plcom, String plcomcode, String plname, int plseat) {
 		super();
 		this.atid = atid;
 		this.actname = actname;
@@ -47,14 +45,13 @@ public class ATicketDto {
 		this.atprice = atprice;
 		this.atatime = atatime;
 		this.atdtime = atdtime;
-		this.atphoto = atphoto;
 		this.plcom = plcom;
 		this.plcomcode = plcomcode;
 		this.plname = plname;
 		this.plseat = plseat;
 	}
-	public ATicketDto(int atid, String actname, String dctname, int plnum, int atprice, Timestamp atatime,
-			Timestamp atdtime, String atphoto) {
+	public ATicketDto(String atid, String actname, String dctname, int plnum, int atprice, Timestamp atatime,
+			Timestamp atdtime) {
 		super();
 		this.atid = atid;
 		this.actname = actname;
@@ -63,21 +60,20 @@ public class ATicketDto {
 		this.atprice = atprice;
 		this.atatime = atatime;
 		this.atdtime = atdtime;
-		this.atphoto = atphoto;
 	}
 	
 	@Override
 	public String toString() {
 		return "ATicketDto [atid=" + atid + ", actname=" + actname + ", dctname=" + dctname + ", plnum=" + plnum
-				+ ", atprice=" + atprice + ", atatime=" + atatime + ", atdtime=" + atdtime + ", atphoto=" + atphoto
+				+ ", atprice=" + atprice + ", atatime=" + atatime + ", atdtime=" + atdtime + ", atphoto="
 				+ ", actcode=" + actcode + ", dctcode=" + dctcode + ", plcom=" + plcom + ", plcomcode=" + plcomcode
 				+ ", plname=" + plname + ", plseat=" + plseat + "]";
 	}	
 	
-	public int getAtid() {
+	public String getAtid() {
 		return atid;
 	}
-	public void setAtid(int atid) {
+	public void setAtid(String atid) {
 		this.atid = atid;
 	}
 	public String getActname() {
@@ -115,12 +111,6 @@ public class ATicketDto {
 	}
 	public void setAtdtime(Timestamp atdtime) {
 		this.atdtime = atdtime;
-	}
-	public String getAtphoto() {
-		return atphoto;
-	}
-	public void setAtphoto(String atphoto) {
-		this.atphoto = atphoto;
 	}
 	public String getActcode() {
 		return actcode;

@@ -12,7 +12,7 @@
 </head>
 <body>
 	<jsp:include page="../Main/header.jsp"/>
-	<div id="content_form">
+	<div id="login_form">
 		<form action="adminLogin.do" method="post">
 			<table>
 				<caption>관리자 로그인</caption>

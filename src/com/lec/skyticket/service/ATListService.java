@@ -21,32 +21,38 @@ public class ATListService implements Service {
 			}
 		}
 		int currentPage = Integer.parseInt(pageNum);
-		final int PAGESIZE = 10, BLOCKSIZE = 10;
+		final int PAGESIZE = 4, BLOCKSIZE = 4;
 		int startRow = (currentPage-1)*PAGESIZE + 1;
 		int endRow = startRow + PAGESIZE - 1;
-		String actname = request.getParameter("actname");
-		String dctname = request.getParameter("dctname");
-		String temp = request.getParameter("atatime");
-		Timestamp atatime = null;
-		if(temp != null) {
+		String schActname = request.getParameter("schActname");
+		String schDctname = request.getParameter("schDctname");
+		String temp = request.getParameter("schAtatime");
+		Timestamp schAtatime = null;
+		if(temp.length() > 11) {
+			schAtatime = Timestamp.valueOf(temp);
+		} else if(temp != "") {
 			String atatimeStr = temp + " 00:00:00";
-			atatime = Timestamp.valueOf(atatimeStr);
+			schAtatime = Timestamp.valueOf(atatimeStr);
 		}
-		request.setAttribute("list", aDao.list(startRow, endRow, atatime, actname, dctname)); 
-		int totCnt = aDao.getATicketCnt(atatime, actname, dctname); // 글 갯수
+		request.setAttribute("list", aDao.list(startRow, endRow, schAtatime, schActname, schDctname)); 
+		int totCnt = aDao.getATicketCnt(schAtatime, schActname, schDctname); 
 		int pageCnt = (int)Math.ceil((double)totCnt/PAGESIZE);
 		int startPage = ((currentPage-1)/BLOCKSIZE)*BLOCKSIZE + 1;
 		int endPage = startPage + BLOCKSIZE - 1;
 		if(endPage > pageCnt) {
 			endPage = pageCnt;
 		}
-		// 페이지 관련 항복들
 		request.setAttribute("pageNum", currentPage);
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("pageCnt", pageCnt);
 		request.setAttribute("BLOCKSIZE", BLOCKSIZE);
-		aDao.cleanAirlineTicket();
+		request.setAttribute("schActname", schActname);
+		request.setAttribute("schDctname", schDctname);
+		request.setAttribute("schAtatime", schAtatime);
+		request.setAttribute("rightView", 1);
 		aDao.cleanMemberTicket();
+		aDao.cleanAirlineTicket();
+		aDao.cleanPlane();
 	}
 }

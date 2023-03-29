@@ -21,7 +21,6 @@ public class JoinService implements Service {
 		String mename = request.getParameter("mename");
 		String mtel = request.getParameter("mtel");
 		String memail = request.getParameter("memail");
-		System.out.println(request.getParameter("mbirth"));
 		Date mbirth = Date.valueOf(request.getParameter("mbirth"));
 		String mgender = request.getParameter("mgender");
 		String mnation = request.getParameter("mnation");

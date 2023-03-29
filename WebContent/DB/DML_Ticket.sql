@@ -3,12 +3,12 @@
 INSERT ALL 
 INTO PLANE (PLNUM, PLCOM, pLCOMCODE, PLNAME, PLSEAT) 
     VALUES (PL_SEQ.NEXTVAL, '이스타항공', 'ZE', 'B-737', 150)
-INTO AIRLINE_TICKET (atID, ACTNAME, DCTNAME, pLNUM, atPRICE, atATIME, atDTIME, atPHOTO)
-    VALUES (AT_SEQ.NEXTVAL, '인천', '런던', PL_SEQ.CURRVAL, 1200000, '2020-03-20 10:00', '2020-03-21 11:30', 'NOIMAGE.JPG')
+INTO AIRLINE_TICKET (atID, ACTNAME, DCTNAME, pLNUM, atPRICE, atATIME, atDTIME)
+    VALUES ('ZE'||AT_SEQ.NEXTVAL, '인천', '런던', PL_SEQ.CURRVAL, 1200000, '2020-03-20 10:00', '2020-03-21 11:30')
 SELECT * FROM DUAL;
 
 -- 2. 도시와 도시코드 정보 맞는지 확인
-SELECT * FROM CITY WHERE ctNAME = '인천' AND ctCODE = 'ICN';
+SELECT * FROM CITY WHERE ctNAME = '인천';
 
     
 -- 3. 항공권 정리 (시간이 지난 항공권들 삭제, 항공사 등록하고 티켓 등록은 안한 항공사들 삭제) --> 리스트 검색마다 실행
@@ -16,20 +16,20 @@ SELECT * FROM CITY WHERE ctNAME = '인천' AND ctCODE = 'ICN';
 DELETE FROM MEMBER_TICKET MT
     WHERE MT.atID IN (SELECT atID FROM AIRLINE_TICKET 
                         WHERE (TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHHMI') > TO_CHAR(atATIME, 'YYYYMMDDHHMI')));
-                        
-    -- 3-2. 항공권에서 삭제된 티켓의 비행기 삭제
+                            
+    -- 3-2. 항공권 티켓 테이블에서 시간이 지난 티켓들 삭제
+DELETE FROM AIRLINE_TICKET 
+    WHERE (TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHHMI') > TO_CHAR(atATIME, 'YYYYMMDDHHMI'));
+
+    -- 3-3. 항공권에서 삭제된 티켓의 비행기 삭제
 DELETE FROM PLANE
     WHERE pLNUM NOT IN (SELECT P.pLNUM FROM AIRLINE_TICKET AT, PLANE P 
                             WHERE AT.pLNUM = P.pLNUM);
-                            
-    -- 3-3. 항공권 티켓 테이블에서 시간이 지난 티켓들 삭제
-DELETE FROM AIRLINE_TICKET 
-    WHERE (TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHHMI') > TO_CHAR(atATIME, 'YYYYMMDDHHMI'));
     
 -- 4. 항공권 삭제 (admin 계정에서 항공권 삭제 / 수정 --> 하나라도 예약이 되어있으면 삭제 / 수정 불가능)
 DELETE FROM AIRLINE_TICKET 
-    WHERE (0 = (SELECT COUNT(*) FROM MEMBER_TICKET WHERE atID = 4))
-    AND atID = 4;
+    WHERE (0 = (SELECT COUNT(*) FROM MEMBER_TICKET WHERE atID = 'OZ8'))
+    AND atID = 'OZ8';
 
 -- 5. 항공권 총 갯수 파악
 SELECT COUNT(*) 

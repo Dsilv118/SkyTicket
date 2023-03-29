@@ -11,9 +11,10 @@
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
   <script>
   	$(function(){
-  	// keyup event(id 중복 확인용) 
+  		// keyup event(id 중복 확인용) 
   		$('input[name="mid"]').keyup(function(){
   			var mid = $(this).val().trim();
   			if(mid == "") {
@@ -32,7 +33,7 @@
   				}); // ajax함수
   			}  // if
   		}); 
-  	// keyup event(tel 중복 확인용) 
+  		// keyup event(tel 중복 확인용) 
   		var patternTel = /^\d{3}-\d{3,4}-\d{4}$/;
   		$('#mtel').keyup(function(){
   			var mtel = $(this).val().trim();
@@ -114,18 +115,18 @@
   </script>
   <script>
 		$( function() {
-		  $( "#datepicker" ).datepicker({
+		  $( "#datepicker" ).datetimepicker({
 		 	 dateFormat: "yy-mm-dd",
 		 	 dayNamesMin: [ "일", "월", "화", "수", "목", "금", "토" ],
-		    monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-		 	 changeMonth: true,  // 월을 바꿀수 있는 셀렉트 박스를 표시한다.
-		 	 changeYear: true,   // 년을 바꿀수 있는 셀렉트 박스를 표시한다.
-		    showMonthAfterYear: true,
-		    yearSuffix: '년',
-		    showOtherMonths: true, // 현재 달이아닌 다른 달 날짜를 회색으로 표시한다.
-		    minDate: new Date(1920, 1 - 1, 1), // 1920년 1월 일을 최소 날짜로 세팅
-		    maxDate: 'y', // 현재 날짜 이전만 선택 가능
-		    dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+		   monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+		   changeMonth: true,  // 월을 바꿀수 있는 셀렉트 박스를 표시한다.
+		   changeYear: true,   // 년을 바꿀수 있는 셀렉트 박스를 표시한다.
+		   showMonthAfterYear: true,
+		   yearSuffix: '년',
+		   showOtherMonths: true, // 현재 달이아닌 다른 달 날짜를 회색으로 표시한다.
+		   minDate: new Date(1920, 1 - 1, 1), // 1920년 1월 일을 최소 날짜로 세팅
+		   maxDate: 'y', // 현재 날짜 이전만 선택 가능
+		   dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
 		  });
 		} );
    </script>

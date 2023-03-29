@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class MTicketDto {
 	private int rvnum;
-	private int atid;
+	private String atid;
 	private String mid;
 	private int mtseat;
 	private String mtservice;
@@ -23,7 +23,7 @@ public class MTicketDto {
 	private int    plseat;
 	
 	public MTicketDto() {}
-	public MTicketDto(int rvnum, int atid, String mid, int mtseat, String mtservice, String actname, String dctname,
+	public MTicketDto(int rvnum, String atid, String mid, int mtseat, String mtservice, String actname, String dctname,
 			int plnum, String atprice, Timestamp atatime, Timestamp atdtime, String atphoto, String actcode,
 			String dctcode, String plcom, String plcomcode, String plname, int plseat) {
 		this.rvnum = rvnum;
@@ -45,7 +45,7 @@ public class MTicketDto {
 		this.plname = plname;
 		this.plseat = plseat;
 	}
-	public MTicketDto(int rvnum, int atid, String mid, int mtseat, String mtservice, String actname, String dctname,
+	public MTicketDto(int rvnum, String atid, String mid, int mtseat, String mtservice, String actname, String dctname,
 			int plnum, String atprice, Timestamp atatime, Timestamp atdtime, String atphoto) {
 		super();
 		this.rvnum = rvnum;
@@ -61,7 +61,7 @@ public class MTicketDto {
 		this.atdtime = atdtime;
 		this.atphoto = atphoto;
 	}	
-	public MTicketDto(int rvnum, int atid, String mid, int mtseat, String mtservice) {
+	public MTicketDto(int rvnum, String atid, String mid, int mtseat, String mtservice) {
 		super();
 		this.rvnum = rvnum;
 		this.atid = atid;
@@ -83,10 +83,10 @@ public class MTicketDto {
 	public void setRvnum(int rvnum) {
 		this.rvnum = rvnum;
 	}
-	public int getAtid() {
+	public String getAtid() {
 		return atid;
 	}
-	public void setAtid(int atid) {
+	public void setAtid(String atid) {
 		this.atid = atid;
 	}
 	public String getMid() {

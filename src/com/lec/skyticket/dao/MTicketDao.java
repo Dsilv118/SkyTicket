@@ -44,7 +44,7 @@ public class MTicketDao {
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, mtDto.getAtid());
+			pstmt.setString(1, mtDto.getAtid());
 			pstmt.setString(2, mtDto.getMid());
 			pstmt.setInt(3, mtDto.getMtseat());
 			pstmt.setString(4, mtDto.getMtservice());
@@ -194,7 +194,7 @@ public class MTicketDao {
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				int rvnum         = rs.getInt("rvnum");
-				int atid          = rs.getInt("atid");
+				String atid          = rs.getString("atid");
 				int mtseat        = rs.getInt("mtseat");
 				String mtservice  = rs.getString("mtservice");
 				String actname    = rs.getString("actname");
@@ -235,7 +235,7 @@ public class MTicketDao {
 			pstmt.setInt(1, rvnum);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				int atid         = rs.getInt("atid");
+				String atid         = rs.getString("atid");
 				String mid       = rs.getString("mid");
 				int mtseat       = rs.getInt("mtseat");
 				String mtservice = rs.getString("mtservice");

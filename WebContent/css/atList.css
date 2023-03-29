@@ -1,0 +1,67 @@
+@charset "UTF-8";
+#atlist_form {
+	width: 1000px; 
+	height:800px; 
+	margin: 40px auto;
+	font-size: 1em;
+}
+#atlist_form table { 
+	width:90%; 
+	margin: 40px auto;
+	border-collapse: collapse;
+}
+#atlist_form table tr { 
+	height: 80px; 
+}
+#atlist_form table tr:hover { 
+	cursor: pointer; 
+}
+#atlist_form td, #board_form th {
+	text-align: center; 
+	padding: 5px; 
+	border-bottom: 1px solid #E9ECEF;
+}
+#atlist_form caption {
+	font-size: 30px; 
+	padding: 30px;
+	border-bottom: 1px solid #50BCDF;
+	text-align: left;
+}
+#atlist_form table tr:nth-child(1) { 
+	background-color: #F8F9FA;
+	font-weight: bold;
+	color: gray;
+	pointer-events: none;
+}
+#atlist_form a { 
+	text-decoration: none; 
+	color: black;
+}
+#atlist_form .left{
+	text-align: left;
+}
+#atlist_form .paging {
+	text-align: center;
+}
+.btn:nth-child(1) {
+	width: 15%;
+	margin-right: 440px;
+}
+.btn:nth-child(2) {
+	margin-right: 25px;
+}
+#caution {
+	margin: 50px 0 0 85px;
+}
+#caution li {
+	padding-top: 7px;
+	font-size: 0.8em;
+}
+#caution li::marker {
+	color: lightgray;
+}
+#atlist_form .blue{
+	text-align: center; 
+	color: #50BCDF;
+	border-bottom: 1px solid #50BCDF;
+}

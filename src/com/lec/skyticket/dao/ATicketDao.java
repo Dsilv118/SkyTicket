@@ -1,7 +1,6 @@
 package com.lec.skyticket.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -44,8 +43,8 @@ public class ATicketDao {
 		String sql = "INSERT ALL " + 
 						"INTO PLANE (PLNUM, PLCOM, pLCOMCODE, PLNAME, PLSEAT) " + 
 						"    VALUES (PL_SEQ.NEXTVAL, ?, ?, ?, ?) " + 
-						"INTO AIRLINE_TICKET (atID, ACTNAME, DCTNAME, pLNUM, atPRICE, atATIME, atDTIME, atPHOTO) " + 
-						"    VALUES (AT_SEQ.NEXTVAL, ?, ?, PL_SEQ.CURRVAL, ?, ?, ?, ?) " + 
+						"INTO AIRLINE_TICKET (atID, ACTNAME, DCTNAME, pLNUM, atPRICE, atATIME, atDTIME) " + 
+						"    VALUES (?||AT_SEQ.NEXTVAL, ?, ?, PL_SEQ.CURRVAL, ?, ?, ?) " + 
 					 "SELECT * FROM DUAL";
 		try {
 			conn = getConnection();
@@ -54,12 +53,12 @@ public class ATicketDao {
 			pstmt.setString(2, atDto.getPlcomcode());
 			pstmt.setString(3, atDto.getPlname());
 			pstmt.setInt(4, atDto.getPlseat());
-			pstmt.setString(5, atDto.getActname());
-			pstmt.setString(6, atDto.getDctname());
-			pstmt.setInt(7, atDto.getAtprice());
-			pstmt.setTimestamp(8, atDto.getAtatime());
-			pstmt.setTimestamp(9, atDto.getAtdtime());
-			pstmt.setString(10, atDto.getAtphoto());
+			pstmt.setString(5, atDto.getAtid());
+			pstmt.setString(6, atDto.getActname());
+			pstmt.setString(7, atDto.getDctname());
+			pstmt.setInt(8, atDto.getAtprice());
+			pstmt.setTimestamp(9, atDto.getAtatime());
+			pstmt.setTimestamp(10, atDto.getAtdtime());
 			pstmt.executeUpdate();
 			result = SUCCESS;
 			System.out.println("항공권 등록 성공");
@@ -76,17 +75,16 @@ public class ATicketDao {
 		return result;
 	}
 	// -- 2. 도시와 도시코드 정보 맞는지 확인
-	public int cityConfirm(String ctname, String ctcode) {
-		int result = DUPLI;
+	public int cityConfirm(String ctname) {
+		int result = NONE_DUPLI;
 		Connection         conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet            rs = null;
-		String sql = "SELECT * FROM CITY WHERE ctNAME = ? AND ctCODE = ?";
+		String sql = "SELECT * FROM CITY WHERE ctNAME = ?";
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, ctname);
-			pstmt.setString(2, ctcode);
 			rs = pstmt.executeQuery();	
 			if(rs.next()) {
 				result = DUPLI;
@@ -117,7 +115,7 @@ public class ATicketDao {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
 			int result = pstmt.executeUpdate();
-			System.out.println(result + "개 삭제 완료");
+			System.out.println(result + "개 예약 티켓 삭제 완료");
 		} catch (SQLException e) {
 			System.out.println(e.getMessage() + "예약 티켓 정리 실패");
 		} finally {
@@ -139,7 +137,7 @@ public class ATicketDao {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
 			int result = pstmt.executeUpdate();
-			System.out.println(result + "개 삭제 완료");
+			System.out.println(result + "개 항공권 삭제 완료");
 		} catch (SQLException e) {
 			System.out.println(e.getMessage() + "항공권 정리 실패");
 		} finally {
@@ -151,8 +149,31 @@ public class ATicketDao {
 			}
 		} 		
 	}
+	public void cleanPlane() {
+		Connection         conn = null;
+		PreparedStatement pstmt = null;
+		String sql = "DELETE FROM PLANE " + 
+					 "    WHERE pLNUM NOT IN (SELECT P.pLNUM FROM AIRLINE_TICKET AT, PLANE P " + 
+					 "                            WHERE AT.pLNUM = P.pLNUM)";
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			int result = pstmt.executeUpdate();
+			System.out.println(result + "개 비행기 정보 삭제 완료");
+		} catch (SQLException e) {
+			System.out.println(e.getMessage() + "비행기 정보 정리 실패");
+		} finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(conn !=null) conn.close();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+		} 		
+	}
 	// -- 4. 항공권 삭제 (admin 계정에서 항공권 삭제 / 수정 --> 하나라도 예약이 되어있으면 삭제 / 수정 불가능)
-	public void deleteTicket(int atid) {
+	public int deleteTicket(String atid) {
+		int result = FAIL;
 		Connection         conn = null;
 		PreparedStatement pstmt = null;
 		String sql = "DELETE FROM AIRLINE_TICKET " + 
@@ -160,8 +181,8 @@ public class ATicketDao {
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, atid);
-			int result = pstmt.executeUpdate();
+			pstmt.setString(1, atid);
+			result = pstmt.executeUpdate();
 			System.out.println(result != FAIL ? "항공권 삭제 성공" : "항공권 삭제 실패");
 		} catch (SQLException e) {
 			System.out.println(e.getMessage() + "항공권 삭제 실패");
@@ -172,10 +193,11 @@ public class ATicketDao {
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
 			}
-		} 		
+		} 	
+		return result;
 	}
 	// -- 5. 항공권 갯수 파악 
-	public int getATicketCnt(Timestamp atatime, String actname, String dctname) {
+	public int getATicketCnt(Timestamp schAtatime, String schActname, String schDctname) {
 		int totCnt = 0;
 		Connection         conn = null;
 		PreparedStatement pstmt = null;
@@ -188,9 +210,9 @@ public class ATicketDao {
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setTimestamp(1, atatime);
-			pstmt.setString(2, actname);
-			pstmt.setString(3, dctname);
+			pstmt.setTimestamp(1, schAtatime);
+			pstmt.setString(2, schActname);
+			pstmt.setString(3, schDctname);
 			rs = pstmt.executeQuery();
 			rs.next();
 			totCnt = rs.getInt(1);
@@ -208,7 +230,7 @@ public class ATicketDao {
 		return totCnt;
 	}
 	// -- 6. 항공권 검색 후 리스트 뿌리기 (startRow ~ endRow)
-	public ArrayList<ATicketDto> list(int startRow, int endRow, Timestamp atatime, String actname, String dctname) {
+	public ArrayList<ATicketDto> list(int startRow, int endRow, Timestamp schAtatime, String schActname, String schDctname) {
 		ArrayList<ATicketDto> atdto = new ArrayList<ATicketDto>();
 		Connection         conn = null;
 		PreparedStatement pstmt = null;
@@ -224,25 +246,27 @@ public class ATicketDao {
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setTimestamp(1, atatime);
-			pstmt.setString(2, actname);
-			pstmt.setString(3, dctname);
+			pstmt.setTimestamp(1, schAtatime);
+			pstmt.setString(2, schActname);
+			pstmt.setString(3, schDctname);
 			pstmt.setInt(4, startRow);
 			pstmt.setInt(5, endRow);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				int atid          = rs.getInt("atid");
+				String atid       = rs.getString("atid");
+				String actname    = rs.getString("actname");
+				String dctname    = rs.getString("dctname");
 				int plnum         = rs.getInt("plnum");
 				int atprice       = rs.getInt("atprice");
+				Timestamp atatime = rs.getTimestamp("atatime");
 				Timestamp atdtime = rs.getTimestamp("atdtime");
-				String atphoto    = rs.getString("atphoto");
 				String actcode    = rs.getString("actcode");
 				String dctcode    = rs.getString("dctcode");
 				String plcom      = rs.getString("plcom");
 				String plcomcode  = rs.getString("plcomcode");
 				String plname     = rs.getString("plname");
 				int plseat        = rs.getInt("plseat");
-				atdto.add(new ATicketDto(atid, actname, dctname, plnum, atprice, atatime, atdtime, atphoto, actcode, dctcode, plcom, plcomcode, plname, plseat));
+				atdto.add(new ATicketDto(atid, actname, dctname, plnum, atprice, atatime, atdtime, actcode, dctcode, plcom, plcomcode, plname, plseat));
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage() + "list 오류");
@@ -258,7 +282,7 @@ public class ATicketDao {
 		return atdto;
 	}
 	// -- 7. 항공권 상세보기
-	public ATicketDto getMember(int atid) {
+	public ATicketDto getATicket(String atid) {
 		ATicketDto dto = null;
 		Connection        conn = null;
 		PreparedStatement pstmt = null;
@@ -269,7 +293,7 @@ public class ATicketDao {
 		try {
 			conn  = getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, atid);
+			pstmt.setString(1, atid);
 			rs    = pstmt.executeQuery();
 			if(rs.next()) {
 				String actname    = rs.getString("actname");
@@ -278,14 +302,13 @@ public class ATicketDao {
 				int atprice       = rs.getInt("atprice");
 				Timestamp atatime = rs.getTimestamp("atatime");
 				Timestamp atdtime = rs.getTimestamp("atdtime");
-				String atphoto    = rs.getString("atphoto");
 				String actcode    = rs.getString("actcode");
 				String dctcode    = rs.getString("dctcode");
 				String plcom      = rs.getString("plcom");
 				String plcomcode  = rs.getString("plcomcode");
 				String plname     = rs.getString("plname");
 				int plseat        = rs.getInt("plseat");
-				dto = new ATicketDto(atid, actname, dctname, plnum, atprice, atatime, atdtime, atphoto, plcom, plcomcode, plname, plseat);
+				dto = new ATicketDto(atid, actname, dctname, plnum, atprice, atatime, atdtime, actcode, dctcode, plcom, plcomcode, plname, plseat);
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());

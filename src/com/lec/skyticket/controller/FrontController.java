@@ -134,6 +134,20 @@ public class FrontController extends HttpServlet {
 			service = new ATListService();
 			service.execute(request, response);
 			viewPage = "Airline_Ticket/atList.jsp";
+		} else if(command.equals("/atSoldOut.do")) {
+			service = new ATSoldOutService();
+			service.execute(request, response);
+			viewPage = "Airline_Ticket/atSoldOut.jsp";
+		} else if(command.equals("/atInsertView.do")) {
+			viewPage = "Airline_Ticket/atInsertView.jsp";
+		} else if(command.equals("/atInsert.do")) {
+			service = new ATInsertService();
+			service.execute(request, response);
+			viewPage = "Main/main.jsp";
+		} else if(command.equals("/atDelete.do")) {
+			service = new ATDeleteService();
+			service.execute(request, response);
+			viewPage = "Main/main.jsp";
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);

@@ -11,13 +11,12 @@ public class CityConfirmService implements Service {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		String ctname = request.getParameter("ctname");
-		String ctcode = request.getParameter("ctcode");
 		ATicketDao aDao = ATicketDao.getInstance();
-		int result = aDao.cityConfirm(ctname, ctcode);
-		if(result == MemberDao.DUPLI) {
-			request.setAttribute("midConfirmResult", "<b>중복된 ID입니다</b>");
+		int result = aDao.cityConfirm(ctname);
+		if(result != MemberDao.DUPLI) {
+			request.setAttribute("cityConfirmResult", "<b>도시 이름을 확인해 주세요</b>");
 		} else {
-			request.setAttribute("midConfirmResult", "사용 가능한 ID입니다");
+			request.setAttribute("cityConfirmResult", "도시 이름이 확인되었습니다");
 		}
 	}
 

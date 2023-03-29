@@ -34,7 +34,7 @@
 		<script>alert('${deleteResult }');</script>
 	</c:if>
 	<c:if test="${replyResult eq SUCCESS }">
-		<script>alert('${param.fid }번 답변글 작성 성공');</script>
+		<script>alert('${param.bid }번 답변글 작성 성공');</script>
 	</c:if>
 	<c:if test="${replyResult eq FAIL }">
 		<script>alert('답변글 작성 실패');</script>
