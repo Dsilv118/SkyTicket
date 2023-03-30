@@ -87,7 +87,7 @@
 				<input type="hidden" name="mid" value="${member.mid }">
 				<div class="writebtn">
 					<input type="submit" class="btn" value="내 문의글 보기"
-							   style="background-color: transparent;  border: 0px transparent solid; color: #50BCDF; text-decoration: underline;">
+							   style="background-color: transparent;  border: 0px transparent solid; color: black; text-decoration: underline;">
 					<input type="button" class="btn" value="글쓰기" onclick="location.href='${conPath }/boardWriteView.do'">
 				</div>
 			</form>

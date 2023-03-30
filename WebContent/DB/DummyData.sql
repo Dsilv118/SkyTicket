@@ -41,23 +41,23 @@ INSERT INTO CITY (ctNAME, ctCODE)
     VALUES ('LA', 'LAX');   
 ---------------------------------- AIRLINE -------------------------------------
 INSERT INTO PLANE (pLNUM, pLCOM, pLCOMCODE, pLNAME, pLSEAT)
-    VALUES (PL_SEQ.NEXTVAL, '루프트한자', 'LH', 'A380', 310);
+    VALUES (PL_SEQ.NEXTVAL, '루프트한자', 'LH', 'Airbus A380', 310);
 INSERT INTO PLANE (pLNUM, pLCOM, pLCOMCODE, pLNAME, pLSEAT)
-    VALUES (PL_SEQ.NEXTVAL, '제주항공', '7C', 'A320', 182);
+    VALUES (PL_SEQ.NEXTVAL, '제주항공', '7C', 'Airbus A320', 182);
 INSERT INTO PLANE (pLNUM, pLCOM, pLCOMCODE, pLNAME, pLSEAT)
-    VALUES (PL_SEQ.NEXTVAL, '아시아나항공', 'OZ', 'B737', 120);
+    VALUES (PL_SEQ.NEXTVAL, '아시아나항공', 'OZ', 'Boeing B737', 120);
 INSERT INTO PLANE (pLNUM, pLCOM, pLCOMCODE, pLNAME, pLSEAT)
-    VALUES (PL_SEQ.NEXTVAL, '대한항공', 'KE', 'B787', 245);
+    VALUES (PL_SEQ.NEXTVAL, '대한항공', 'KE', 'Boeing B787', 245);
 INSERT INTO PLANE (pLNUM, pLCOM, pLCOMCODE, pLNAME, pLSEAT)
-    VALUES (PL_SEQ.NEXTVAL, '진에어', 'LJ', 'B737', 0);
+    VALUES (PL_SEQ.NEXTVAL, '진에어', 'LJ', 'Boeing B737', 0);
 INSERT INTO PLANE (pLNUM, pLCOM, pLCOMCODE, pLNAME, pLSEAT)
-    VALUES (PL_SEQ.NEXTVAL, '에어서울', 'RS', 'A320', 3);
+    VALUES (PL_SEQ.NEXTVAL, '에어서울', 'RS', 'Airbus A320', 3);
 INSERT INTO PLANE (pLNUM, pLCOM, pLCOMCODE, pLNAME, pLSEAT)
-    VALUES (PL_SEQ.NEXTVAL, '에어부산', 'BX', 'A320', 51);
+    VALUES (PL_SEQ.NEXTVAL, '에어부산', 'BX', 'Airbus A320', 51);
 INSERT INTO PLANE (pLNUM, pLCOM, pLCOMCODE, pLNAME, pLSEAT)
-    VALUES (PL_SEQ.NEXTVAL, '대한항공', 'KE', 'A380', 4);
+    VALUES (PL_SEQ.NEXTVAL, '대한항공', 'KE', 'Airbus A380', 4);
 INSERT INTO PLANE (pLNUM, pLCOM, pLCOMCODE, pLNAME, pLSEAT)
-    VALUES (PL_SEQ.NEXTVAL, '티웨이', 'TW', 'A330', 2);
+    VALUES (PL_SEQ.NEXTVAL, '티웨이', 'TW', 'Airbus A330', 2);
     
 ------------------------------ AIRLINE TICKET ----------------------------------
 INSERT INTO AIRLINE_TICKET (atID, aCTNAME, dCTNAME, pLNUM, atPRICE, atATIME, atDTIME)
@@ -81,11 +81,11 @@ INSERT INTO AIRLINE_TICKET (atID, aCTNAME, dCTNAME, pLNUM, atPRICE, atATIME, atD
     
 ------------------------------- MEMBER TICKET ----------------------------------    
 INSERT INTO MEMBER_TICKET (rvNUM, atID, mID, mtSEAT, mtSERVICE)
-    VALUES (MEMBER_SEQ.NEXTVAL || TO_CHAR(SYSDATE, 'MMDD'), 'KE101', 'aaa', 1, '이유식');
+    VALUES (MEMBER_SEQ.NEXTVAL || TO_CHAR(SYSDATE, 'MMDD'), 'LH101', 'aaa', 1, '이유식');
 INSERT INTO MEMBER_TICKET (rvNUM, atID, mID, mtSEAT, mtSERVICE)
     VALUES (MEMBER_SEQ.NEXTVAL || TO_CHAR(SYSDATE, 'MMDD'), '7C132', 'bbb', 2, '특별식');
 INSERT INTO MEMBER_TICKET (rvNUM, atID, mID, mtSEAT, mtSERVICE)
-    VALUES (MEMBER_SEQ.NEXTVAL || TO_CHAR(SYSDATE, 'MMDD'), 'LH163', 'ccc', 1, null);
+    VALUES (MEMBER_SEQ.NEXTVAL || TO_CHAR(SYSDATE, 'MMDD'), 'OZ163', 'ccc', 1, null);
     
 ----------------------------------- BOARD --------------------------------------    
 INSERT INTO BOARD (bID, mID, bSUBJECT, bCONTENT, bFILE, bIP, bGROUP, bSTEP, bINDENT)
@@ -93,7 +93,7 @@ INSERT INTO BOARD (bID, mID, bSUBJECT, bCONTENT, bFILE, bIP, bGROUP, bSTEP, bIND
 INSERT INTO BOARD (bID, mID, bSUBJECT, bCONTENT, bFILE, bIP, bGROUP, bSTEP, bINDENT)
     VALUES (BOARD_SEQ.NEXTVAL, 'bbb', '제목이야2', '본문이야2', null, '953-522-0', BOARD_SEQ.CURRVAL, 0, 0);
 INSERT INTO BOARD (bID, mID, bSUBJECT, bCONTENT, bFILE, bIP, bGROUP, bSTEP, bINDENT)
-    VALUES (BOARD_SEQ.NEXTVAL, 'bbb', '제목1의 답변입니다', '본문1의 답변이야', 'NOIMAGE.JPG', '342-202-10', 1, 1, 1);
+    VALUES (BOARD_SEQ.NEXTVAL, 'aaa', '제목1의 답변입니다', '본문1의 답변이야', 'NOIMAGE.JPG', '342-202-10', 1, 1, 1);
 
 SELECT * FROM CITY;
 SELECT * FROM PLANE;

@@ -88,8 +88,11 @@
 	<script>
 		$(document).ready(function(){
 			$('#log').click(function(){
-				if(${empty member} && ${empty admin}) {
+				if(${empty member && empty admin }) {
 					alert('로그인 후 이용 가능합니다');
+					location.href="loginView.do";
+				}else{
+					location.href="${conPath }/mtList.do?mid=${member.mid }";
 				}
 			});
 		});
@@ -110,7 +113,7 @@
 			<ul>
 				<li><a href="${conPath }/logout.do">로그아웃</a></li>
 				<li><a href="${conPath }/modifyView.do">정보수정</a></li>
-				<li><a>${member.mkname }님 &nbsp; ▶</a></li>	
+				<li><a href="${conPath }/boardListMs.do?mid=${member.mid }">${member.mkname }님 &nbsp; ▶</a></li>	
 			</ul>
 		</div>
 	</c:if>
@@ -135,12 +138,7 @@
 					<a href="${conPath }/atInsertView.do">항공권 등록</a>
 				</c:if>
 				<c:if test="${empty admin }">
-					<c:if test="${empty member }">
-						<a href="${conPath }/main.do">예약내역</a>
-					</c:if>
-					<c:if test="${not empty member }">
-						<a href="${conPath }/boardList.do">예약내역</a>
-					</c:if>
+					<a>예약내역</a>
 				</c:if>
 			</li>
 			<li>

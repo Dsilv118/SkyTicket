@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.lec.skyticket.service.*;
-
 @WebServlet("*.do")
 public class FrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -111,6 +110,14 @@ public class FrontController extends HttpServlet {
 			service.execute(request, response);
 			viewPage = "Board/boardContent.jsp";
 			controlView = true;
+		} else if(command.equals("/boardModifyView.do")) {
+			service = new BoardModifyViewService();
+			service.execute(request, response);
+			viewPage = "Board/boardModify.jsp";
+		} else if(command.equals("/boardModify.do")) {
+			service = new BoardModifyService();
+			service.execute(request, response);
+			viewPage = "Main/main.jsp";
 		} else if(command.equals("/boardDelete.do")) {
 			if(controlView) {
 				service = new BoardDeleteService();
@@ -148,6 +155,30 @@ public class FrontController extends HttpServlet {
 			service = new ATDeleteService();
 			service.execute(request, response);
 			viewPage = "Main/main.jsp";
+		} else if(command.equals("/mtReserveView.do")) {
+			service = new MTReserveViewService();
+			service.execute(request, response);
+			viewPage = "Member_Ticket/mtReserveView.jsp";
+		} else if(command.equals("/mtReserve.do")) {
+			service = new MTReserveService();
+			service.execute(request, response);
+			viewPage = "Main/main.jsp";
+		} else if(command.equals("/mtList.do")) {
+			service = new MTListService();
+			service.execute(request, response);
+			viewPage = "Member_Ticket/mtList.jsp";
+		} else if(command.equals("/mtContent.do")) {
+			service = new MTContentService();
+			service.execute(request, response);
+			viewPage = "Member_Ticket/mtContent.jsp";
+		} else if(command.equals("/mtContent.do")) {
+			service = new MTContentService();
+			service.execute(request, response);
+			viewPage = "Member_Ticket/mtContent.jsp";
+		} else if(command.equals("/mtDelete.do")) {
+			service = new MTDeleteService();
+			service.execute(request, response);
+			viewPage = "mtList.do";
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);

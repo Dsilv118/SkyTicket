@@ -1,0 +1,70 @@
+@charset "UTF-8";
+#mtList_form {
+	width: 1000px; 
+	height:660px; 
+	margin: 40px auto;
+	font-size: 0.9em;
+}
+#mtList_form table { 
+	width:90%; 
+	margin: 40px auto;
+	border-collapse: collapse;
+}
+#mtList_form table tr { 
+	height: 40px; 
+}
+#mtList_form table tr:hover { 
+	cursor: pointer; 
+}
+#mtList_form td, #mtList_form th {
+	text-align: center; 
+	padding: 5px; 
+	border-bottom: 1px solid #E9ECEF;
+}
+#mtList_form caption {
+	font-size: 30px; 
+	padding: 30px;
+	border-bottom: 1px solid #50BCDF;
+	text-align: left;
+}
+#mtList_form h2, #mtList_form b{
+	text-align: center; 
+	color: #50BCDF;
+	border-bottom: 1px solid #50BCDF;
+}
+#mtList_form a { 
+	text-decoration: none; 
+	color:black
+}
+#mtList_form .left{
+	text-align: left;
+}
+#mtList_form .paging {
+	text-align: center;
+}
+#mtList_form input:not(.btn) {
+	width: 90%;
+}
+.writebtn {
+	text-align: center;
+	width: 100%;
+}
+.btn {
+	color: #ffffff;        	
+	background: #50BCDF;
+	display: inline-block;
+	border: 0;              
+	outline: none;
+	width: 8%;              
+	padding: 6px 0; 
+	text-align: center;     
+	cursor: pointer;
+	margin-bottom: 50px;
+}
+.btn:nth-child(1) {
+	width: 15%;
+	margin-right: 440px;
+}
+.btn:nth-child(2) {
+	margin-right: 25px;
+}

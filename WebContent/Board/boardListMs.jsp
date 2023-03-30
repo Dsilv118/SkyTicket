@@ -85,7 +85,7 @@
 		<c:if test="${not empty member}">
 			<div class="writebtn">
 				<input type="button" class="btn" value="전체 문의글 보기" onclick="location.href='${conPath}/boardList.do'"
-							 style="background-color: transparent;  border: 0px transparent solid; color: #50BCDF; text-decoration: underline;">
+							 style="background-color: transparent;  border: 0px transparent solid; color: black; text-decoration: underline;">
 				<input type="button" class="btn" value="글쓰기" onclick="location.href='${conPath }/boardWriteView.do'">
 			</div>
 		</c:if>

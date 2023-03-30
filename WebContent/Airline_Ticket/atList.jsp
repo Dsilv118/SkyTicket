@@ -13,21 +13,21 @@
 	<script>
 		$(document).ready(function(){
 			$('tr').click(function(){
-				var atid = $(this).children().eq(0).text().trim();
-				var soldout = $(this).children().eq(3).text().trim();
+				var atid = $(this).children().eq(0).text().trim().substring();
+				var soldout = $(this).children().eq(4).text().trim();
 				if(soldout == '예약 매진' && ${empty admin}) {
 					alert('예약 매진되었습니다');
 				} else if(${empty member} && ${empty admin}) {
 					alert('로그인 후 이용 가능합니다');
-					return;
-				}else if(${not empty admin}){
+					location.href="loginView.do";
+				} else if(${not empty admin}){
 					if(confirm(atid + ' 편명의 항공권을 삭제하시겠습니까?')) {
 						location.href = '${conPath }/atDelete.do?atid='+atid;
 					}
 					return;
 				} else if(${not empty member}) {
 					if(confirm(atid + ' 편명의 항공권을 예매하시겠습니까?')) {
-						location.href = '${conPath }/mtReserveView.do';
+						location.href = '${conPath }/mtReserveView.do?atid='+atid;
 					}
 					return;
 				}
@@ -48,12 +48,12 @@
 		<table>
 			<caption>
 				<img src="icon/takeoff.png">
-				<c:if test="${not empty schActname and not empty schDctname}">
+				<c:if test="${not empty schActname and not empty schDctname }">
 					${schActname } <img src="icon/rightarrow.png"> ${schDctname }
 				</c:if>
 			</caption>
 			<tr>
-				<td>편명</td><td>출발</td><td>도착</td><td>정상운임</td>
+				<td>편명</td><td>출발</td><td></td><td>도착</td><td>정상운임</td>
 			</tr>
 			<c:if test="${list.size() eq 0 }">
 				<tr><td colspan="6">-</td></tr>
@@ -63,13 +63,16 @@
 					<tr>
 						<td>
 							${dto.atid } <br>
-							<span style="font-size: 13px; font-weight: bold; color: #742351;">${dto.plcom }</span>
 						</td>
 						<td>
 							<span style="font-size: 1.3em;">
 								<fmt:formatDate value="${dto.atatime }" pattern="yy-MM-dd(E) HH:mm"/><br>
 							</span>
 							${dto.actname }(${dto.actcode })
+						</td>
+						<td>
+							<img src="icon/rightarrow2.png"> <br>
+							<span style="font-size: 13px; font-weight: bold; color: #742351;">${dto.plcom }</span>
 						</td>
 						<td>
 							<span style="font-size: 1.3em;">

@@ -15,8 +15,8 @@ import javax.sql.DataSource;
 import com.lec.skyticket.dto.MTicketDto;
 
 public class MTicketDao {
-	public static int SUCCESS    = 1;
-	public static int FAIL         = 0;
+	public int SUCCESS    = 1;
+	public int FAIL       = 0;
 	private static MTicketDao INSTANCE = new MTicketDao();
 	public static MTicketDao getInstance() {
 		return INSTANCE;
@@ -34,13 +34,13 @@ public class MTicketDao {
 		return conn;
 	}
 	// -- 1. 예약성공 시 예약내역 추가
-	public int write(MTicketDto mtDto) {
+	public int insertTicket(MTicketDto mtDto) {
 		int result = FAIL;
 		Connection         conn = null;
 		PreparedStatement pstmt = null;
 		String sql = "INSERT INTO MEMBER_TICKET (rvNUM, atID, mID, mtSEAT, mtSERVICE) " + 
 					 "    VALUES (MEMBER_SEQ.NEXTVAL || TO_CHAR(SYSDATE, 'MMDD'), " + 
-					 "            ?, ?, ?, ?);";
+					 "            ?, ?, ?, ?)";
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(sql);
@@ -64,19 +64,20 @@ public class MTicketDao {
 		return result;
 	}
 	// -- 1-1. 예약 성공시 자리 차감
-	public int modifyMember(int atid) {
+	public int modifyMember(int mtseat, String atid) {
 		int result = FAIL;
 		Connection        conn = null;
 		PreparedStatement pstmt = null;
-		String sql = "UPDATE PLANE SET pLSEAT = pLSEAT - 1 " + 
+		String sql = "UPDATE PLANE SET pLSEAT = pLSEAT - ? " + 
 					 "    WHERE pLSEAT > 0 AND pLNUM = (SELECT AT.pLNUM FROM AIRLINE_TICKET AT, PLANE P " + 
 					 "                                     WHERE AT.pLNUM = P.pLNUM AND AT.atID = ?)";
 		try {
 			conn  = getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, atid);
+			pstmt.setInt(1, mtseat);
+			pstmt.setString(2, atid);
 			result = pstmt.executeUpdate();
-			System.out.println(result==SUCCESS ? "좌석 수정 성공" : "좌석 수정 실패");
+			System.out.println(result==SUCCESS ? mtseat + "좌석 수정 성공" : "좌석 수정 실패");
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 			System.out.println("좌석 수정 실패");
@@ -116,7 +117,7 @@ public class MTicketDao {
 		return result;		
 	}
 	// -- 2-1. 예약 취소시 좌석 자리수 만큼 증가
-	public int modifySeat(int rvnum, int plseat, int atid) {
+	public int modifySeat(int rvnum, int mtseat, String atid) {
 		int result = FAIL;
 		Connection        conn = null;
 		PreparedStatement pstmt = null;
@@ -129,13 +130,13 @@ public class MTicketDao {
 			conn  = getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, rvnum);
-			pstmt.setInt(2, plseat);
-			pstmt.setInt(3, atid);
+			pstmt.setInt(2, mtseat);
+			pstmt.setString(3, atid);
 			result = pstmt.executeUpdate();
 			System.out.println(result==SUCCESS ? "좌석 수정 성공" : "좌석 수정 실패");
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
-			System.out.println("회원정보 수정 실패");
+			System.out.println("좌석 수정 실패");
 		} finally {
 			try {
 				if(pstmt !=null) pstmt.close();
@@ -180,7 +181,7 @@ public class MTicketDao {
 		PreparedStatement pstmt = null;
 		ResultSet            rs = null;
 		String sql = "SELECT * " + 
-					 "    FROM (SELECT ROWNUM RW, A.* FROM (SELECT MT.*, aCTNAME, dCTNAME, ATATIME, ATDTIME " + 
+					 "    FROM (SELECT ROWNUM RW, A.* FROM (SELECT MT.*, aCTNAME, dCTNAME, ATATIME, ATDTIME, ATPRICE " + 
 					 "                                        FROM MEMBER_TICKET MT, AIRLINE_TICKET AT " + 
 					 "                                        WHERE MT.atID = AT.atID AND mID = ? " + 
 					 "                                        ORDER BY AT.atATIME) A) " + 
@@ -194,17 +195,15 @@ public class MTicketDao {
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				int rvnum         = rs.getInt("rvnum");
-				String atid          = rs.getString("atid");
+				String atid       = rs.getString("atid");
 				int mtseat        = rs.getInt("mtseat");
 				String mtservice  = rs.getString("mtservice");
 				String actname    = rs.getString("actname");
 				String dctname    = rs.getString("dctname");
-				int plnum         = rs.getInt("plnum");
 				String atprice    = rs.getString("atprice");
 				Timestamp atatime = rs.getTimestamp("atatime");
 				Timestamp atdtime = rs.getTimestamp("atdtime");
-				String atphoto    = rs.getString("atphoto");
-				mtdto.add(new MTicketDto(rvnum, atid, mid, mtseat, mtservice, actname, dctname, plnum, atprice, atatime, atdtime, atphoto));
+				mtdto.add(new MTicketDto(rvnum, atid, mid, mtseat, mtservice, actname, dctname, atprice, atatime, atdtime));
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage() + "list 오류");
@@ -225,9 +224,9 @@ public class MTicketDao {
 		Connection         conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet            rs = null;
-		String sql = "SELECT MT.*, AT.*, C1.ctCODE actCODE, C2.ctCODE dctCODE, P.* " + 
-					 "    FROM MEMBER_TICKET MT, AIRLINE_TICKET AT, CITY C1, CITY C2, PLANE P " + 
-					 "    WHERE MT.atID = AT.atID AND AT.pLNUM = P.pLNUM AND AT.actNAME = C1.ctNAME " + 
+		String sql = "SELECT MT.*, M.MKNAME, AT.*, C1.ctCODE actCODE, C2.ctCODE dctCODE, P.* " + 
+					 "    FROM MEMBER_TICKET MT, MEMBER M, AIRLINE_TICKET AT, CITY C1, CITY C2, PLANE P " + 
+					 "    WHERE MT.mID = M.mID AND MT.atID = AT.atID AND AT.pLNUM = P.pLNUM AND AT.actNAME = C1.ctNAME " + 
 					 "    AND AT.dctNAME = C2.ctNAME AND RVNUM = ?";
 		try {
 			conn = getConnection();
@@ -235,8 +234,9 @@ public class MTicketDao {
 			pstmt.setInt(1, rvnum);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				String atid         = rs.getString("atid");
+				String atid      = rs.getString("atid");
 				String mid       = rs.getString("mid");
+				String mkname    = rs.getString("mkname");
 				int mtseat       = rs.getInt("mtseat");
 				String mtservice = rs.getString("mtservice");
 				String actname   = rs.getString("actname");
@@ -245,15 +245,14 @@ public class MTicketDao {
 				String atprice   = rs.getString("atprice");
 				Timestamp atatime = rs.getTimestamp("atatime");
 				Timestamp atdtime = rs.getTimestamp("atdtime");
-				String atphoto   = rs.getString("atphoto");
 				String actcode   = rs.getString("actcode");
 				String dctcode   = rs.getString("dctcode");
 				String plcom     = rs.getString("plcom");
 				String plcomcode = rs.getString("plcomcode");
 				String plname    = rs.getString("plname");
 				int plseat       = rs.getInt("plseat");
-				mtdto = new MTicketDto(rvnum, atid, mid, mtseat, mtservice, actname, dctname, plnum, atprice, 
-									   atatime, atdtime, atphoto, actcode, dctcode, plcom, plcomcode, plname, plseat);
+				mtdto = new MTicketDto(rvnum, atid, mid, mkname, mtseat, mtservice, actname, dctname, plnum, atprice, 
+									   atatime, atdtime, actcode, dctcode, plcom, plcomcode, plname, plseat);
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());

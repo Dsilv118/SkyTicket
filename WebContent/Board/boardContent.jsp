@@ -50,10 +50,13 @@
 			<tr>
 				<td colspan="2">
 					<c:if test="${not empty admin }">
-						<c:if test="${0 eq BoardContent.bindent }">
+						<c:if test="${0 eq BoardContent.bindent}">
 							<button class="btn" onclick="location.href='boardReplyView.do?bid=${param.bid }&pageNum=${param.pageNum }'">답변</button>
 						</c:if>
 						<button class="btn" onclick="location.href='boardDelete.do?bid=${param.bid }&pageNum=${param.pageNum }'">삭제</button>	
+					</c:if>
+					<c:if test="${member.mid eq BoardContent.mid and 0 eq BoardContent.bindent}">
+						<button class="btn" onclick="location.href='boardModifyView.do?bid=${param.bid }&pageNum=${param.pageNum }'">수정</button>
 					</c:if>
 					<button class="btn" onclick="location.href='boardList.do?pageNum=${param.pageNum }'">목록</button>
 				</td>

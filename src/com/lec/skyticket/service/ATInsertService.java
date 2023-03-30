@@ -15,7 +15,7 @@ public class ATInsertService implements Service {
 		System.out.println(request.getParameter("atatime"));
 		System.out.println(request.getParameter("atdtime"));
 		int result = 0;
-		ATicketDao aDao = ATicketDao.getInstance();
+		ATicketDao atDao = ATicketDao.getInstance();
 		String atid = request.getParameter("plcomcode");
 		String plcom = request.getParameter("plcom");
 		String plname = request.getParameter("plname");
@@ -26,9 +26,9 @@ public class ATInsertService implements Service {
 		int atprice = Integer.parseInt(request.getParameter("atprice"));
 		Timestamp atatime = Timestamp.valueOf(request.getParameter("atatime")+':'+00);
 		Timestamp atdtime = Timestamp.valueOf(request.getParameter("atdtime")+':'+00);
-		ATicketDto aDto = new ATicketDto(atid, actname, dctname, 0, atprice, atatime, atdtime, plcom, plcomcode, plname, plseat);
-		result = aDao.insertTicket(aDto);
-		request.setAttribute("joinResult", result);
+		ATicketDto atDto = new ATicketDto(atid, actname, dctname, 0, atprice, atatime, atdtime, plcom, plcomcode, plname, plseat);
+		result = atDao.insertTicket(atDto);
+		request.setAttribute("TicketInsertResult", result);
 	}
 
 }

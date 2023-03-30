@@ -15,6 +15,7 @@
 		$(function(){
 			$('form').submit(function(){
 				var bsubject = $('#bsubject').val().trim();
+				var bcontent = $('#bcontent').val().trim();
 				if(bsubject.length > 15) {
 					alert('제목은 15글자 이하로 입력해주세요');
 					return false;
@@ -29,36 +30,34 @@
 <body>
 	<jsp:include page="../Main/header.jsp"/>
 	<div id="boardwrite_form">
-		<form action="boardWrite.do" method="post" enctype="multipart/form-data">
-			<input type="hidden" name="pageNum" value="${param.pageNum }">
-			<input type="hidden" name="mid" value="${member.mid }">
-			<input type="hidden" name="mkname" value="${member.mkname }">
+		<form action="boardModify.do" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="bid" value="${param.bid }">
 			<table>
 				<caption>
-					1:1 문의하기
+					글 수정
 				</caption>
 				<tr>
 					<td>
 						<input type="text" name="bsubject" id="bsubject"
-									 required="required" placeholder="15글자 이하로 제목을 입력해주세요" 
-									 autofocus="autofocus">
+									 required="required" placeholder="15글자 이하로 제목을 입력해주세요"
+									 autofocus="autofocus" value="${BoardModify.bsubject }">
 					</td>
 				</tr>
 				<tr>
 					<td>
 						<textarea rows="5" cols="50" name="bcontent" 
 											placeholder="문의하실 내용을 입력해주세요 &#13;&#10;파일을 첨부해주시면 더 자세한 답변을 받으실 수 있습니다"
-						></textarea>
+						>${BoardModify.bcontent }</textarea>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<input type="file" name="bfile">
+						<input type="file" name="bfile" value="${BoardModify.bfile }">
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<input type="submit" value="글쓰기" class="btn">
+						<input type="submit" value="수정하기" class="btn">
 						<input type="button" value="취소" class="btn" onclick="history.back()">
 					</td>
 				</tr>

@@ -350,6 +350,40 @@ public class BoardDao {
 		}
 		return bdto;
 	}
+	// -- 11. 글 수정하기
+	public int modify(int bid, String bsubject, String bcontent, String bfile, String bip, Date brdate) {
+		int result = FAIL;
+		Connection         conn = null;
+		PreparedStatement pstmt = null;
+		String sql = "UPDATE BOARD SET BSUBJECT = ?, " + 
+					 "                 BCONTENT = ?, " + 
+					 "                 BFILE = ?, " + 
+					 "                 BIP = ?, " + 
+					 "                 BRDATE = ? " + 
+					 "    WHERE BID = ?";
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, bsubject);
+			pstmt.setString(2, bcontent);
+			pstmt.setString(3, bfile);
+			pstmt.setString(4, bip);
+			pstmt.setDate(5, brdate);
+			pstmt.setInt(6, bid);
+			result = pstmt.executeUpdate();
+			System.out.println(result == SUCCESS ? "글 수정 성공" : "글 번호(BID) 오류");
+		} catch (SQLException e) {
+			System.out.println(e.getMessage() + "글 수정 실패");
+		} finally {
+			try {
+				if(pstmt!=null) pstmt.close();
+				if(conn !=null) conn.close();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+		} 
+		return result;
+	}
 }
 
 

@@ -87,7 +87,13 @@ SELECT *
                                         ORDER BY BGROUP DESC, BSTEP) A)
     WHERE RW BETWEEN 1 AND 7;
 
-
+-- 10. 글 수정
+UPDATE BOARD SET BSUBJECT = '수정된 제목이야',
+                 BCONTENT = '수정된 본문이야',
+                 BFILE = '수정된 파일이야',
+                 BIP = '2312',
+                 BRDATE = ''
+    WHERE BID = '1';
 
 
 

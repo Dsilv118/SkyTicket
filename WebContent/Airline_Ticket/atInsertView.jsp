@@ -65,8 +65,8 @@
   	  			alert('항공사 코드는 3자 이내로 입력해주세요');
   	  			$('#plcomcode').focus();
   	  			return false;
-  	  		} else if(plname.length > 3){
-  	  			alert('항공사 이름은 15자 이내로 입력해주세요');
+  	  		} else if(plname.length > 16){
+  	  			alert('항공기 이름은 15자 이내로 입력해주세요');
   	  			$('#plname').focus();
   	  			return false;
   	  		} else if(plseat > 999){

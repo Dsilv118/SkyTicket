@@ -6,6 +6,7 @@ public class MTicketDto {
 	private int rvnum;
 	private String atid;
 	private String mid;
+	private String mkname;
 	private int mtseat;
 	private String mtservice;
 	private String actname;
@@ -14,7 +15,6 @@ public class MTicketDto {
 	private String atprice;
 	private Timestamp atatime;
 	private Timestamp atdtime;
-	private String atphoto;
 	private String actcode;
 	private String dctcode;
 	private String plcom;
@@ -23,12 +23,13 @@ public class MTicketDto {
 	private int    plseat;
 	
 	public MTicketDto() {}
-	public MTicketDto(int rvnum, String atid, String mid, int mtseat, String mtservice, String actname, String dctname,
-			int plnum, String atprice, Timestamp atatime, Timestamp atdtime, String atphoto, String actcode,
+	public MTicketDto(int rvnum, String atid, String mid, String mkname, int mtseat, String mtservice, String actname, String dctname,
+			int plnum, String atprice, Timestamp atatime, Timestamp atdtime, String actcode,
 			String dctcode, String plcom, String plcomcode, String plname, int plseat) {
 		this.rvnum = rvnum;
 		this.atid = atid;
 		this.mid = mid;
+		this.mkname = mkname;
 		this.mtseat = mtseat;
 		this.mtservice = mtservice;
 		this.actname = actname;
@@ -37,7 +38,6 @@ public class MTicketDto {
 		this.atprice = atprice;
 		this.atatime = atatime;
 		this.atdtime = atdtime;
-		this.atphoto = atphoto;
 		this.actcode = actcode;
 		this.dctcode = dctcode;
 		this.plcom = plcom;
@@ -45,8 +45,8 @@ public class MTicketDto {
 		this.plname = plname;
 		this.plseat = plseat;
 	}
-	public MTicketDto(int rvnum, String atid, String mid, int mtseat, String mtservice, String actname, String dctname,
-			int plnum, String atprice, Timestamp atatime, Timestamp atdtime, String atphoto) {
+	public MTicketDto(int rvnum, String atid, String mid, int mtseat, String mtservice, String actname, String dctname, 
+			String atprice, Timestamp atatime, Timestamp atdtime) {
 		super();
 		this.rvnum = rvnum;
 		this.atid = atid;
@@ -55,12 +55,10 @@ public class MTicketDto {
 		this.mtservice = mtservice;
 		this.actname = actname;
 		this.dctname = dctname;
-		this.plnum = plnum;
 		this.atprice = atprice;
 		this.atatime = atatime;
 		this.atdtime = atdtime;
-		this.atphoto = atphoto;
-	}	
+	}		
 	public MTicketDto(int rvnum, String atid, String mid, int mtseat, String mtservice) {
 		super();
 		this.rvnum = rvnum;
@@ -71,11 +69,17 @@ public class MTicketDto {
 	}
 	@Override
 	public String toString() {
-		return "MTicketDto [rvnum=" + rvnum + ", atid=" + atid + ", mid=" + mid + ", mtseat=" + mtseat + ", mtservice="
-				+ mtservice + ", actname=" + actname + ", dctname=" + dctname + ", plnum=" + plnum + ", atprice="
-				+ atprice + ", atatime=" + atatime + ", atdtime=" + atdtime + ", atphoto=" + atphoto + ", actcode="
+		return "MTicketDto [rvnum=" + rvnum + ", atid=" + atid + ", mid=" + mid + ", mkname=" + mkname + ", mtseat="
+				+ mtseat + ", mtservice=" + mtservice + ", actname=" + actname + ", dctname=" + dctname + ", plnum="
+				+ plnum + ", atprice=" + atprice + ", atatime=" + atatime + ", atdtime=" + atdtime + ", actcode="
 				+ actcode + ", dctcode=" + dctcode + ", plcom=" + plcom + ", plcomcode=" + plcomcode + ", plname="
 				+ plname + ", plseat=" + plseat + "]";
+	}
+	public String getMkname() {
+		return mkname;
+	}
+	public void setMkname(String mkname) {
+		this.mkname = mkname;
 	}
 	public int getRvnum() {
 		return rvnum;
@@ -142,12 +146,6 @@ public class MTicketDto {
 	}
 	public void setAtdtime(Timestamp atdtime) {
 		this.atdtime = atdtime;
-	}
-	public String getAtphoto() {
-		return atphoto;
-	}
-	public void setAtphoto(String atphoto) {
-		this.atphoto = atphoto;
 	}
 	public String getActcode() {
 		return actcode;

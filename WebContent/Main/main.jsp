@@ -35,10 +35,19 @@
 			location.href = '${conPath}/${next}';
 		</script>
 	</c:if>
-	<c:if test="${not empty joinResult }">
+	<c:if test="${joinResult eq 1}">
+		<script>alert('환영합니다. 회원가입이 성공했습니다');</script>
+	</c:if>
+	<c:if test="${joinResult eq 0 }">
+		<script>
+			alert('회원가입이 실패했습니다. 다시 확인해주세요');
+			history.back();
+		</script>
+	</c:if>
+	<c:if test="${TicketInsertResult eq 1}">
 		<script>alert('성공적으로 항공권 등록이 되었습니다');</script>
 	</c:if>
-	<c:if test="${not empty joinResult }">
+	<c:if test="${TicketInsertResult eq 0}">
 		<script>
 			alert('항공권 등록이 실패했습니다. 다시 확인해주세요');
 			history.back();
@@ -54,6 +63,20 @@
 			alert('${loginErrorMsg}');
 			history.back();
 		</script>
+	</c:if>
+	<c:if test="${ModifyResult eq 1 }">
+		<script>alert('글 수정 성공');</script>
+	</c:if>
+	<c:if test="${ModifyResult eq 0 }">
+		<script>alert('글 수정 실패');</script>
+		history.back();
+	</c:if>
+	<c:if test="${not empty insertTicketResult }">
+		<c:if test="${insertTicketResult != '예매 성공하였습니다' }">
+			<script>alert('${insertTicketResult }')</script>
+			history.back();
+		</c:if>
+		<script>alert('${insertTicketResult }')</script>
 	</c:if>
 	<jsp:include page="../Main/header.jsp"/>
 	<div id="#main_content">
