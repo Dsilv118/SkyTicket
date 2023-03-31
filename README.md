@@ -16,13 +16,13 @@
 
 ## 목차
 [1. 작업분할 구조도](https://github.com/Dsilv118/SkyTicket#%EC%9E%91%EC%97%85%EB%B6%84%ED%95%A0%EB%8F%84)<br>
-[2. Gantt Chart]()<br>
-[3. 이용자 권한]()<br>
-[4. Usecase Diagram]()<br>
-[5. Sequence Diagram]()<br>
-[6. 기능정의서]()<br>
-[7. E-R Diagram]()<br>
-[8. Project Source Explorer]()<br>
+[2. Gantt Chart](https://github.com/Dsilv118/SkyTicket#gantt-chart)<br>
+[3. 이용자 권한](https://github.com/Dsilv118/SkyTicket#%EC%9D%B4%EC%9A%A9%EC%9E%90-%EA%B6%8C%ED%95%9C)<br>
+[4. Usecase Diagram](https://github.com/Dsilv118/SkyTicket#usecase-daigram)<br>
+[5. Sequence Diagram](https://github.com/Dsilv118/SkyTicket#sequence-diagram)<br>
+[6. 기능정의서](https://github.com/Dsilv118/SkyTicket#%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98%EC%84%9C)<br>
+[7. E-R Diagram](https://github.com/Dsilv118/SkyTicket#e-r-diagram)<br>
+[8. Project Source Explorer](https://github.com/Dsilv118/SkyTicket#project-source-explorer)<br>
 [9. 실행화면 설명]()<br>
 
 ## 작업분할도
