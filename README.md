@@ -15,7 +15,7 @@
 ![슬라이드1](https://user-images.githubusercontent.com/119652081/228998564-68525e59-145c-4582-bffa-149216108204.jpg)
 
 ## 목차
-[1. 작업분할 구조도]()<br>
+[1. 작업분할 구조도](https://github.com/Dsilv118/SkyTicket#%EC%9E%91%EC%97%85%EB%B6%84%ED%95%A0%EB%8F%84)<br>
 [2. Gantt Chart]()<br>
 [3. 이용자 권한]()<br>
 [4. Usecase Diagram]()<br>
