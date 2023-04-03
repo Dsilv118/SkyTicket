@@ -38,7 +38,8 @@
 ![usecasediagram](https://user-images.githubusercontent.com/119652081/229069990-aa18a33b-fe73-4221-bfe0-795f74ed24e2.jpg)
 
 ## Sequence Diagram
-![시퀀스 다이어그램](https://user-images.githubusercontent.com/119652081/229070050-064d9479-3ec3-42b7-8195-466cd0daf73d.jpg)
+![SkyTicket 시퀀스다이어그램 사용자](https://user-images.githubusercontent.com/119652081/229417414-3ad348b9-6bc9-458c-b275-496f32787345.jpg)
+![SkyTicket 시퀀스다이어그램 관리자](https://user-images.githubusercontent.com/119652081/229417425-11bb0c71-0301-429e-b8c8-da51b9d4fac2.jpg)
 
 ## 기능정의서
 ![SkyTicket 기능정의서 및 설계](https://user-images.githubusercontent.com/119652081/229070101-38a18e4b-df07-456b-9c1c-754df8ae5dc5.jpg)
